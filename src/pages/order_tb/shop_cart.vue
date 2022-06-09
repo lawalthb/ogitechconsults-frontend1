@@ -171,7 +171,7 @@
 						this.closeDialogs();// close page dialog that if opened
 						this.flashMsg(this.msgAfterSave);
 						this.$emit("submitted", this.record);
-						if(this.redirect){ this.navigateTo(`/order_tb`); }
+						if(this.redirect){ this.navigateTo(`/user_orders_view`); }
 					},
 					 (response) => {
 						this.saving = false;

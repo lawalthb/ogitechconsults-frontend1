@@ -8,15 +8,15 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Order Tb</div>
+                                        <div class="text-h6 text-primary">Level</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-auto col-12 " >
-                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/products_tb/shop`" class="full-width" >
+                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/level/add`" class="full-width" >
                                 <q-icon name="add"></q-icon>                                
-                                Add New Order Tb 
+                                Add New Level 
                             </q-btn>
                         </div>
                         <div class="col-md-auto col-12 " >
@@ -43,7 +43,7 @@
                             <div >
                                 <template v-if="showBreadcrumbs && $route.query.tag">
                                     <q-breadcrumbs class="q-pa-md">
-                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/order_tb"></q-breadcrumbs-el>
+                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/level"></q-breadcrumbs-el>
                                         <q-breadcrumbs-el :label="$route.query.label"></q-breadcrumbs-el>
                                     </q-breadcrumbs>
                                 </template>
@@ -52,20 +52,20 @@
                                         <!-- Master Page Start -->
                                         <div class="col">
                                             <!-- page records template -->
-                                            <template v-if="!loading">
+                                            <template >
                                                 <q-table 
                                                 :grid="$q.screen.lt.md"
                                                 :flat="$q.screen.gt.md"
                                                 table-header-class="text-h4 "
                                                 :bordered="false"
-                                                :columns="$menus.Order_TbTableHeaderItems" 
+                                                :columns="$menus.LevelTableHeaderItems" 
                                                 :data="records"
                                                 binary-state-sort
                                                 separator="horizontal"
                                                 :dense="true"
                                                 :selected.sync="selectedItems"
                                                 selection="multiple"
-                                                row-key="order_id" 
+                                                row-key="level_id" 
                                                 :pagination.sync="pagination"
                                                 hide-bottom
                                                 @request="setPagination"
@@ -76,18 +76,42 @@
                                                         <q-td auto-width>
                                                             <q-checkbox dense v-model="props.selected"></q-checkbox>
                                                         </q-td>
-                                                        <q-td  key="product_id" :props="props">
-                                                            <q-btn v-if="props.row.product_id" :to="`/products_tb/view/${props.row.product_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                  {{ props.row.products_tb_product_name }}
-                                                            </q-btn>
+                                                        <q-td  key="level_id" :props="props">
+                                                            <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/level/view/${props.row.level_id}`">{{ props.row.level_id }}</q-btn>
                                                         </q-td>
-                                                        <q-td  key="vendor_id" :props="props">
-                                                            <q-btn v-if="props.row.vendor_id" :to="`/vendors_tb/view/${props.row.vendor_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                  {{ props.row.vendors_tb_name }}
-                                                            </q-btn>
+                                                        <q-td  key="level_name" :props="props">
+                                                            {{ props.row.level_name }}
                                                         </q-td>
-                                                        <q-td  key="qty" :props="props">
-                                                            {{ props.row.qty }}
+                                                        <q-td  key="status" :props="props">
+                                                            {{ props.row.status }}
+                                                        </q-td>
+                                                        <q-td key="btnactions" :props="props">
+                                                            <div class="row q-col-gutter-xs justify-end">
+                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                        <q-list dense rounded nav>
+                                                                            <q-item link clickable v-ripple :to="`/level/view/${props.row.level_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>View</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple :to="`/level/edit/${props.row.level_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Edit</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.level_id)">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Delete</q-item-section>
+                                                                            </q-item>
+                                                                        </q-list>
+                                                                    </q-menu>
+                                                                </q-btn>
+                                                            </div>
                                                         </q-td>
                                                     </q-tr>
                                                 </template>
@@ -99,36 +123,60 @@
                                                             <q-card-section>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Item Ordered
+                                                                        Level Id
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn v-if="props.row.product_id" :to="`/products_tb/view/${props.row.product_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                              {{ props.row.products_tb_product_name }}
-                                                                        </q-btn>
+                                                                        <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/level/view/${props.row.level_id}`">{{ props.row.level_id }}</q-btn>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Vendor Id
+                                                                        Level Name
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn v-if="props.row.vendor_id" :to="`/vendors_tb/view/${props.row.vendor_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                              {{ props.row.vendors_tb_name }}
-                                                                        </q-btn>
+                                                                        {{ props.row.level_name }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Qty
+                                                                        Status
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.qty }}
+                                                                        {{ props.row.status }}
                                                                     </div>
                                                                 </div>
                                                             </q-card-section>
                                                             <q-separator></q-separator>
                                                             <div class="row justify-between">
                                                                 <div class="q-pa-sm"><q-checkbox  dense v-model="props.selected"></q-checkbox></div>
+                                                                <q-card-actions>
+                                                                    <div class="row q-col-gutter-xs justify-end">
+                                                                        <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                            <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                                <q-list dense rounded nav>
+                                                                                    <q-item link clickable v-ripple :to="`/level/view/${props.row.level_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>View</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple :to="`/level/edit/${props.row.level_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Edit</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple @click="deleteItem(props.row.level_id)">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Delete</q-item-section>
+                                                                                    </q-item>
+                                                                                </q-list>
+                                                                            </q-menu>
+                                                                        </q-btn>
+                                                                    </div>
+                                                                </q-card-actions>
                                                             </div>
                                                         </q-card>
                                                     </div>
@@ -138,32 +186,6 @@
                                             </template>
                                             <!-- page loading indicator template -->
                                             <template v-if="loading">
-                                                <div class="q-my-md">
-                                                    <q-markup-table flat>
-                                                    <tbody>
-                                                        <tr v-for="n in 5" :key="n">
-                                                            <td class="text-left">
-                                                                <q-skeleton type="text" width="85px" />
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <q-skeleton type="text" width="50px" />
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <q-skeleton type="text" height="40px" width="40px" />
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <q-skeleton type="text" width="65px" />
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <q-skeleton type="text" width="85px" />
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <q-skeleton type="text" width="35px" />
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                    </q-markup-table>
-                                                </div>
                                                 <q-inner-loading :showing="loading">
                                                     <q-spinner color="primary" size="30px"> 
                                                     </q-spinner>
@@ -185,6 +207,9 @@
                                                     <div class="q-pa-sm" v-show="!loading">
                                                         <div class="row justify-between">
                                                             <div class="row q-col-gutter-md">
+                                                                <div>
+                                                                    <q-btn    :rounded="false"  no-caps  unelevated   color="negative" padding="xs" @click="deleteItem(selectedItems)" v-if="selectedItems.length" icon="delete_sweep" class="q-my-xs" title="Delete Selected"></q-btn>
+                                                                </div>
                                                             </div>
                                                             <div v-if="paginate && totalRecords > 0" class="row q-col-gutter-md justify-center">
                                                                 <div class="col-auto">
@@ -214,26 +239,26 @@
 	import { ListPageMixin } from "../../mixins/listpage.js";
 	import { mapActions, mapGetters, mapState } from "vuex";
 	export default {
-		name: 'listOrdertbPage',
+		name: 'listLevelPage',
 		components: {
         },
 		mixins: [PageMixin, ListPageMixin ],
 		props: {
 			primaryKey : {
 				type : String,
-				default : 'order_id',
+				default : 'level_id',
 			},
 			pageName : {
 				type : String,
-				default : 'order_tb',
+				default : 'level',
 			},
 			routeName : {
 				type : String,
-				default : 'order_tblist',
+				default : 'levellist',
 			},
 			apiPath : {
 				type : String,
-				default : 'order_tb/index',
+				default : 'level/index',
 			},
 			multiCheckbox: {
 				type: Boolean,
@@ -252,23 +277,23 @@
 			pageTitle:{
 				get: function () {
 					//set browser page title
-					return "Order Tb"
+					return "Level"
 				}
 			},
 			records: {
 				get: function () {
-					return this.$store.getters["order_tb/records"];
+					return this.$store.getters["level/records"];
 				},
 				set: function (value) {
-					this.$store.commit("order_tb/setRecords", value);
+					this.$store.commit("level/setRecords", value);
 				},
 			},
 			currentRecord: {
 				get: function () {
-					return this.$store.getters["order_tb/currentRecord"];
+					return this.$store.getters["level/currentRecord"];
 				},
 				set: function (value) {
-					this.$store.commit("order_tb/setCurrentRecord", value);
+					this.$store.commit("level/setCurrentRecord", value);
 				},
 			},
 		},
@@ -289,7 +314,7 @@
 			},
 		},
 		methods: {
-			...mapActions("order_tb", ["fetchRecords", "deleteRecord"]),
+			...mapActions("level", ["fetchRecords", "deleteRecord"]),
 			load: function() {
 				if (!this.loading) {
 					this.loading = true;

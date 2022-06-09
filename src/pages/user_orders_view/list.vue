@@ -8,16 +8,10 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Vendors Tb</div>
+                                        <div class="text-h6 text-primary">Order List</div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-auto col-12 " >
-                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/vendors_tb/add`" class="full-width" >
-                                <q-icon name="add"></q-icon>                                
-                                Add New Vendors Tb 
-                            </q-btn>
                         </div>
                         <div class="col-md-auto col-12 " >
                             <q-input debounce="1000" outlined dense  placeholder="Search" v-model="searchText" >
@@ -34,16 +28,62 @@
             <div class="container-fluid">
                 <div class="row q-col-gutter-x-md">
                     <div class="col comp-grid" >
+                        <div class="">
+                            <api-data-source   api-path="components_data/user_orders_view_name_option_list"  :query-params="filters" v-slot="req">
+                                <div class="q-pa-sm">
+                                    <q-btn-dropdown icon="" label="Vendor Names" outline no-caps color="primary" class="full-width" >
+                                        <q-list rounded nav>
+                                            <q-item v-for="(option, index) in req.response" :active="filters.user_orders_view_name == option.value" :key="index" @click="setFilter(option, 'user_orders_view_name')" v-ripple clickable v-close-popup>
+                                                <q-item-section>{{ option.label }}</q-item-section>
+                                            </q-item>
+                                        </q-list>
+                                    </q-btn-dropdown>
+                                </div>
+                            </api-data-source>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section q-mb-md" >
+            <div class="container-fluid">
+                <div class="row q-col-gutter-x-md">
+                    <div class="col-10 col-sm-12 col-lg-auto col-md-10 comp-grid" >
+                        <q-card  :flat="isSubPage" class="q-mb-sm q-pa-sm nice-shadow-18">
+                            <div class="" >
+                                <div class="row  items-center q-col-gutter-sm q-px-sm">
+                                    <div class="col">
+                                        <div class="text-bold">Filter by Order Status</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <q-separator class="q-my-sm"></q-separator>
+                            <q-list :nav="true" dense rounded >
+                                <q-item v-for="(option, index) in $menus.user_orders_viewsales_statusItems" :active="filters.user_orders_view_sales_status == option.value" :key="index" @click="setFilter(option, 'user_orders_view_sales_status')" v-ripple clickable v-close-popup>
+                                    <q-item-section>{{ option.label }}</q-item-section>
+                                </q-item>
+                            </q-list>
+                        </q-card>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-10 col-md-10 comp-grid" >
                         <div>
                             <q-chip v-if="searchText" icon="search" removable @remove="searchText='';$route.query.search=''">
                             Search: <strong class="q-ml-sm"> {{ searchText }} </strong>
+                            </q-chip>
+                            <q-chip v-if="filters.user_orders_view_name" removable @remove="filters.user_orders_view_name = ''">
+                            Name:  
+                            <strong class="q-ml-sm">{{ filtersLabel.user_orders_view_name.toString() }}</strong>
+                            </q-chip>
+                            <q-chip v-if="filters.user_orders_view_sales_status" removable @remove="filters.user_orders_view_sales_status = ''">
+                            Sales Status:  
+                            <strong class="q-ml-sm">{{ filtersLabel.user_orders_view_sales_status.toString() }}</strong>
                             </q-chip>
                         </div>
                         <div class="">
                             <div >
                                 <template v-if="showBreadcrumbs && $route.query.tag">
                                     <q-breadcrumbs class="q-pa-md">
-                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/vendors_tb"></q-breadcrumbs-el>
+                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/user_orders_view"></q-breadcrumbs-el>
                                         <q-breadcrumbs-el :label="$route.query.label"></q-breadcrumbs-el>
                                     </q-breadcrumbs>
                                 </template>
@@ -58,14 +98,12 @@
                                                 :flat="$q.screen.gt.md"
                                                 table-header-class="text-h4 "
                                                 :bordered="false"
-                                                :columns="$menus.Vendors_TbTableHeaderItems" 
+                                                :columns="$menus.User_Orders_ViewTableHeaderItems" 
                                                 :data="records"
                                                 binary-state-sort
                                                 separator="horizontal"
                                                 :dense="true"
-                                                :selected.sync="selectedItems"
-                                                selection="multiple"
-                                                row-key="vendor_id" 
+                                                row-key="order_id" 
                                                 :pagination.sync="pagination"
                                                 hide-bottom
                                                 @request="setPagination"
@@ -73,11 +111,23 @@
                                                 <!-- Start of Table Layout -->
                                                 <template v-slot:body="props">
                                                     <q-tr :class="{selected: isCurrentRecord(props.row)}" :props="props">
-                                                        <q-td auto-width>
-                                                            <q-checkbox dense v-model="props.selected"></q-checkbox>
+                                                        <q-td  key="order_no" :props="props">
+                                                            {{ props.row.order_no }}
                                                         </q-td>
-                                                        <q-td  key="vendor_id" :props="props">
-                                                            <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/vendors_tb/view/${props.row.vendor_id}`">{{ props.row.vendor_id }}</q-btn>
+                                                        <q-td  key="product_name" :props="props">
+                                                            {{ props.row.product_name }}
+                                                        </q-td>
+                                                        <q-td  key="sales_status" :props="props">
+                                                            <q-chip>{{ props.row.sales_status }}</q-chip>
+                                                        </q-td>
+                                                        <q-td  key="qty" :props="props">
+                                                            {{ props.row.qty }}
+                                                        </q-td>
+                                                        <q-td  key="rate" :props="props">
+                                                            {{ props.row.rate }}
+                                                        </q-td>
+                                                        <q-td  key="total_amount" :props="props">
+                                                            {{ props.row.total_amount }}
                                                         </q-td>
                                                         <q-td  key="title" :props="props">
                                                             {{ props.row.title }}
@@ -85,19 +135,35 @@
                                                         <q-td  key="name" :props="props">
                                                             {{ props.row.name }}
                                                         </q-td>
-                                                        <q-td  key="email" :props="props">
-                                                            <q-btn padding="xs"   flat :rounded="false"  size=""  color="primary"  no-caps  unelevated   type="a" :href="'mailto:' + props.row.email">{{ props.row.email }}</q-btn>
+                                                        <q-td  key="payment_optn" :props="props">
+                                                            {{ props.row.payment_optn }}
                                                         </q-td>
-                                                        <q-td  key="department_id" :props="props">
-                                                            <q-btn v-if="props.row.department_id" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${props.row.department_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Departments Tb
-                                                            </q-btn>
+                                                        <q-td  key="mat_no" :props="props">
+                                                            {{ props.row.mat_no }}
                                                         </q-td>
-                                                        <q-td  key="status" :props="props">
-                                                            {{ props.row.status }}
+                                                        <q-td  key="level" :props="props">
+                                                            {{ props.row.level }}
                                                         </q-td>
-                                                        <q-td  key="reg_date" :props="props">
-                                                            {{ props.row.reg_date }}
+                                                        <q-td  key="date" :props="props">
+                                                            <q-chip v-if="props.row.date" dense size="13px" :label="props.row.date | relativeDate">
+                                                            <q-tooltip
+                                                            content-class="bg-accent"
+                                                            transition-show="scale"
+                                                            transition-hide="scale"
+                                                            >
+                                                            {{ props.row.date | humanDatetime}}
+                                                            </q-tooltip>
+                                                            </q-chip>
+                                                        </q-td>
+                                                        <q-td key="btnactions" :props="props">
+                                                            <div class="row q-col-gutter-xs justify-end">
+                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                        <q-list dense rounded nav>
+                                                                        </q-list>
+                                                                    </q-menu>
+                                                                </q-btn>
+                                                            </div>
                                                         </q-td>
                                                     </q-tr>
                                                 </template>
@@ -109,10 +175,50 @@
                                                             <q-card-section>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Vendor Id
+                                                                        Order No
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/vendors_tb/view/${props.row.vendor_id}`">{{ props.row.vendor_id }}</q-btn>
+                                                                        {{ props.row.order_no }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Product Name
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        {{ props.row.product_name }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Status
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <q-chip>{{ props.row.sales_status }}</q-chip>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Qty
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        {{ props.row.qty }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Rate
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        {{ props.row.rate }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Total Amount
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        {{ props.row.total_amount }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
@@ -133,42 +239,57 @@
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Email
+                                                                        Payment Optn
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn padding="xs"   flat :rounded="false"  size=""  color="primary"  no-caps  unelevated   type="a" :href="'mailto:' + props.row.email">{{ props.row.email }}</q-btn>
+                                                                        {{ props.row.payment_optn }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Department Id
+                                                                        Mat No
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn v-if="props.row.department_id" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${props.row.department_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                            <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Departments Tb
-                                                                        </q-btn>
+                                                                        {{ props.row.mat_no }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Status
+                                                                        Level
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.status }}
+                                                                        {{ props.row.level }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Reg Date
+                                                                        Date
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.reg_date }}
+                                                                        <q-chip v-if="props.row.date" dense size="13px" :label="props.row.date | relativeDate">
+                                                                        <q-tooltip
+                                                                        content-class="bg-accent"
+                                                                        transition-show="scale"
+                                                                        transition-hide="scale"
+                                                                        >
+                                                                        {{ props.row.date | humanDatetime}}
+                                                                        </q-tooltip>
+                                                                        </q-chip>
                                                                     </div>
                                                                 </div>
                                                             </q-card-section>
                                                             <q-separator></q-separator>
                                                             <div class="row justify-between">
-                                                                <div class="q-pa-sm"><q-checkbox  dense v-model="props.selected"></q-checkbox></div>
+                                                                <q-card-actions>
+                                                                    <div class="row q-col-gutter-xs justify-end">
+                                                                        <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                            <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                                <q-list dense rounded nav>
+                                                                                </q-list>
+                                                                            </q-menu>
+                                                                        </q-btn>
+                                                                    </div>
+                                                                </q-card-actions>
                                                             </div>
                                                         </q-card>
                                                     </div>
@@ -228,30 +349,30 @@
 	import { ListPageMixin } from "../../mixins/listpage.js";
 	import { mapActions, mapGetters, mapState } from "vuex";
 	export default {
-		name: 'listVendorstbPage',
+		name: 'listUserordersviewPage',
 		components: {
         },
 		mixins: [PageMixin, ListPageMixin ],
 		props: {
 			primaryKey : {
 				type : String,
-				default : 'vendor_id',
+				default : '',
 			},
 			pageName : {
 				type : String,
-				default : 'vendors_tb',
+				default : 'user_orders_view',
 			},
 			routeName : {
 				type : String,
-				default : 'vendors_tblist',
+				default : 'user_orders_viewlist',
 			},
 			apiPath : {
 				type : String,
-				default : 'vendors_tb/index',
+				default : 'user_orders_view/index',
 			},
 			multiCheckbox: {
 				type: Boolean,
-				default: true,
+				default: false,
 			},
 			msgBeforeDelete: {
 				type: String,
@@ -260,29 +381,31 @@
 		},
 		data() {
             return {
+				filters: {user_orders_view_name: '',user_orders_view_sales_status: ''},
+			filtersLabel: {},
 			}
 		},
 		computed: {
 			pageTitle:{
 				get: function () {
 					//set browser page title
-					return "Vendors Tb"
+					return "User Orders View"
 				}
 			},
 			records: {
 				get: function () {
-					return this.$store.getters["vendors_tb/records"];
+					return this.$store.getters["user_orders_view/records"];
 				},
 				set: function (value) {
-					this.$store.commit("vendors_tb/setRecords", value);
+					this.$store.commit("user_orders_view/setRecords", value);
 				},
 			},
 			currentRecord: {
 				get: function () {
-					return this.$store.getters["vendors_tb/currentRecord"];
+					return this.$store.getters["user_orders_view/currentRecord"];
 				},
 				set: function (value) {
-					this.$store.commit("vendors_tb/setCurrentRecord", value);
+					this.$store.commit("user_orders_view/setCurrentRecord", value);
 				},
 			},
 		},
@@ -303,7 +426,7 @@
 			},
 		},
 		methods: {
-			...mapActions("vendors_tb", ["fetchRecords", "deleteRecord"]),
+			...mapActions("user_orders_view", ["fetchRecords", "deleteRecord"]),
 			load: function() {
 				if (!this.loading) {
 					this.loading = true;

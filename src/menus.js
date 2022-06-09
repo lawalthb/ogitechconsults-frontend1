@@ -6,80 +6,8 @@ export const AppMenus = {
 	navbarSideLeftItems: [
   {
     "path": "/home",
-    "label": "Home",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/products_tb",
-    "label": "Products Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/payment_tb",
-    "label": "Payment Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/order_tb",
-    "label": "Order Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/departments_tb",
-    "label": "Departments Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/admins_tb",
-    "label": "Admins Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/vendors_tb",
-    "label": "Vendors Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/users_tb",
-    "label": "Users Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/stock_tb",
-    "label": "Stock Tb",
-    "icon": "extension",
-    "iconcolor": "",
-    "target": "",
-    "submenu": []
-  },
-  {
-    "path": "/sales_tb",
-    "label": "Sales Tb",
-    "icon": "extension",
+    "label": "Dashboard",
+    "icon": "dashboard",
     "iconcolor": "",
     "target": "",
     "submenu": []
@@ -87,15 +15,31 @@ export const AppMenus = {
   {
     "path": "/products_tb/shop",
     "label": "Shop",
-    "icon": "extension",
+    "icon": "shopping_cart",
     "iconcolor": "",
     "target": "",
     "submenu": []
   },
   {
-    "path": "/order_tb/shop_cart",
-    "label": "Shop Cart",
-    "icon": "extension",
+    "path": "/user_orders_view",
+    "label": "My Orders",
+    "icon": "add_shopping_cart",
+    "iconcolor": "",
+    "target": "",
+    "submenu": []
+  },
+  {
+    "path": "/account",
+    "label": "Profile",
+    "icon": "android",
+    "iconcolor": "",
+    "target": "",
+    "submenu": []
+  },
+  {
+    "path": "/",
+    "label": "Logout",
+    "icon": "subdirectory_arrow_left",
     "iconcolor": "",
     "target": "",
     "submenu": []
@@ -103,39 +47,11 @@ export const AppMenus = {
 ],
 	Products_TbTableHeaderItems: [
   {
-    "label": "Product Id",
-    "align": "left",
-    "sortable": false,
-    "name": "product_id",
-    "field": "product_id"
-  },
-  {
     "label": "Product Name",
     "align": "left",
     "sortable": false,
     "name": "product_name",
     "field": "product_name"
-  },
-  {
-    "label": "Unit",
-    "align": "left",
-    "sortable": false,
-    "name": "unit",
-    "field": "unit"
-  },
-  {
-    "label": "Description",
-    "align": "left",
-    "sortable": false,
-    "name": "description",
-    "field": "description"
-  },
-  {
-    "label": "Image",
-    "align": "left",
-    "sortable": false,
-    "name": "image",
-    "field": "image"
   },
   {
     "label": "Vendor Id",
@@ -157,75 +73,40 @@ export const AppMenus = {
     "sortable": false,
     "name": "level",
     "field": "level"
-  },
-  {
-    "label": "Sell Rate",
-    "align": "left",
-    "sortable": false,
-    "name": "sell_rate",
-    "field": "sell_rate"
-  },
-  {
-    "label": "Purchase Rate",
-    "align": "left",
-    "sortable": false,
-    "name": "purchase_rate",
-    "field": "purchase_rate"
-  },
-  {
-    "label": "Status",
-    "align": "left",
-    "sortable": false,
-    "name": "status",
-    "field": "status"
-  },
-  {
-    "label": "Reg Date",
-    "align": "left",
-    "sortable": false,
-    "name": "reg_date",
-    "field": "reg_date"
-  },
-  {
-    "label": "Available For",
-    "align": "left",
-    "sortable": false,
-    "name": "available_for",
-    "field": "available_for"
-  },
-  {
-    "label": "Admin Id",
-    "align": "left",
-    "sortable": false,
-    "name": "admin_id",
-    "field": "admin_id"
-  },
-  {
-    "label": "Vendor Email",
-    "align": "left",
-    "sortable": false,
-    "name": "vendor_email",
-    "field": "vendor_email"
-  },
-  {
-    "label": "Qty",
-    "align": "left",
-    "sortable": false,
-    "name": "qty",
-    "field": "qty"
-  },
-  {
-    "label": "Action",
-    "align": "right",
-    "sortable": false,
-    "name": "btnactions",
-    "field": ""
   }
 ],
 	product_nameItems: [    
 
     ],
 	Products_TbTableHeader2Items: [
+  {
+    "label": "Product Name",
+    "align": "left",
+    "sortable": false,
+    "name": "product_name",
+    "field": "product_name"
+  },
+  {
+    "label": "",
+    "align": "left",
+    "sortable": false,
+    "name": "image",
+    "field": "image"
+  },
+  {
+    "label": "Price",
+    "align": "left",
+    "sortable": false,
+    "name": "sell_rate",
+    "field": "sell_rate"
+  },
+  {
+    "label": "Vendor's Name",
+    "align": "left",
+    "sortable": false,
+    "name": "vendor_id",
+    "field": "vendor_id"
+  },
   {
     "label": "Action",
     "align": "right",
@@ -301,12 +182,28 @@ export const AppMenus = {
 ],
 	Order_TbTableHeaderItems: [
   {
-    "label": "Order Id",
+    "label": "Item Ordered",
     "align": "left",
     "sortable": false,
-    "name": "order_id",
-    "field": "order_id"
+    "name": "product_id",
+    "field": "product_id"
   },
+  {
+    "label": "Vendor Id",
+    "align": "left",
+    "sortable": false,
+    "name": "vendor_id",
+    "field": "vendor_id"
+  },
+  {
+    "label": "Qty",
+    "align": "left",
+    "sortable": false,
+    "name": "qty",
+    "field": "qty"
+  }
+],
+	Order_TbTableHeader2Items: [
   {
     "label": "Order No",
     "align": "left",
@@ -327,13 +224,6 @@ export const AppMenus = {
     "sortable": false,
     "name": "vendor_id",
     "field": "vendor_id"
-  },
-  {
-    "label": "User Id",
-    "align": "left",
-    "sortable": false,
-    "name": "user_id",
-    "field": "user_id"
   },
   {
     "label": "Mat No",
@@ -373,21 +263,14 @@ export const AppMenus = {
   {
     "label": "Date",
     "align": "left",
-    "sortable": false,
+    "sortable": true,
     "name": "date",
     "field": "date"
   },
   {
-    "label": "Dare Reg",
-    "align": "left",
-    "sortable": false,
-    "name": "dare_reg",
-    "field": "dare_reg"
-  },
-  {
     "label": "Order Status",
     "align": "left",
-    "sortable": false,
+    "sortable": true,
     "name": "order_status",
     "field": "order_status"
   },
@@ -578,13 +461,6 @@ export const AppMenus = {
     "sortable": false,
     "name": "reg_date",
     "field": "reg_date"
-  },
-  {
-    "label": "Action",
-    "align": "right",
-    "sortable": false,
-    "name": "btnactions",
-    "field": ""
   }
 ],
 	Users_TbTableHeaderItems: [
@@ -671,6 +547,13 @@ export const AppMenus = {
     "sortable": false,
     "name": "photo",
     "field": "photo"
+  },
+  {
+    "label": "Email Verified At",
+    "align": "left",
+    "sortable": false,
+    "name": "email_verified_at",
+    "field": "email_verified_at"
   },
   {
     "label": "Action",
@@ -891,6 +774,130 @@ export const AppMenus = {
     "field": ""
   }
 ],
+	User_Orders_ViewTableHeaderItems: [
+  {
+    "label": "Order No",
+    "align": "left",
+    "sortable": false,
+    "name": "order_no",
+    "field": "order_no"
+  },
+  {
+    "label": "Product Name",
+    "align": "left",
+    "sortable": true,
+    "name": "product_name",
+    "field": "product_name"
+  },
+  {
+    "label": "Status",
+    "align": "left",
+    "sortable": true,
+    "name": "sales_status",
+    "field": "sales_status"
+  },
+  {
+    "label": "Qty",
+    "align": "left",
+    "sortable": false,
+    "name": "qty",
+    "field": "qty"
+  },
+  {
+    "label": "Rate",
+    "align": "left",
+    "sortable": false,
+    "name": "rate",
+    "field": "rate"
+  },
+  {
+    "label": "Total Amount",
+    "align": "left",
+    "sortable": false,
+    "name": "total_amount",
+    "field": "total_amount"
+  },
+  {
+    "label": "Title",
+    "align": "left",
+    "sortable": false,
+    "name": "title",
+    "field": "title"
+  },
+  {
+    "label": "Name",
+    "align": "left",
+    "sortable": false,
+    "name": "name",
+    "field": "name"
+  },
+  {
+    "label": "Payment Optn",
+    "align": "left",
+    "sortable": false,
+    "name": "payment_optn",
+    "field": "payment_optn"
+  },
+  {
+    "label": "Mat No",
+    "align": "left",
+    "sortable": false,
+    "name": "mat_no",
+    "field": "mat_no"
+  },
+  {
+    "label": "Level",
+    "align": "left",
+    "sortable": false,
+    "name": "level",
+    "field": "level"
+  },
+  {
+    "label": "Date",
+    "align": "left",
+    "sortable": true,
+    "name": "date",
+    "field": "date"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
+  }
+],
+	LevelTableHeaderItems: [
+  {
+    "label": "Level Id",
+    "align": "left",
+    "sortable": false,
+    "name": "level_id",
+    "field": "level_id"
+  },
+  {
+    "label": "Level Name",
+    "align": "left",
+    "sortable": false,
+    "name": "level_name",
+    "field": "level_name"
+  },
+  {
+    "label": "Status",
+    "align": "left",
+    "sortable": false,
+    "name": "status",
+    "field": "status"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
+  }
+],
+	user_orders_viewsales_statusItems: [{"label":"Pending","value":"1"},{"label":"Approved","value":"2"}],
 
     exportFormats: {
         print: {

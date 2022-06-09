@@ -56,13 +56,6 @@
                                                                         <div v-if="!loading && ready">
                                                                             <q-item>
                                                                                 <q-item-section>
-                                                                                    <q-item-label caption>User Id: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.user_id }}</q-item-label>
-                                                                                </q-item-section>
-                                                                            </q-item>
-                                                                            <q-separator></q-separator>
-                                                                            <q-item>
-                                                                                <q-item-section>
                                                                                     <q-item-label caption>Matric No: </q-item-label>
                                                                                     <q-item-label class="text-bold">{{ item.matric_no }}</q-item-label>
                                                                                 </q-item-section>
@@ -101,7 +94,7 @@
                                                                                     <q-item-label caption>Department: </q-item-label>
                                                                                     <q-item-label class="text-bold">
                                                                                         <q-btn v-if="item.department" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${item.department}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                                            <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Departments Tb Detail
+                                                                                              {{ item.departments_tb_name }}
                                                                                         </q-btn>
                                                                                     </q-item-label>
                                                                                 </q-item-section>
@@ -109,36 +102,8 @@
                                                                             <q-separator></q-separator>
                                                                             <q-item>
                                                                                 <q-item-section>
-                                                                                    <q-item-label caption>Level: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.level }}</q-item-label>
-                                                                                </q-item-section>
-                                                                            </q-item>
-                                                                            <q-separator></q-separator>
-                                                                            <q-item>
-                                                                                <q-item-section>
                                                                                     <q-item-label caption>Status: </q-item-label>
                                                                                     <q-item-label class="text-bold">{{ item.status }}</q-item-label>
-                                                                                </q-item-section>
-                                                                            </q-item>
-                                                                            <q-separator></q-separator>
-                                                                            <q-item>
-                                                                                <q-item-section>
-                                                                                    <q-item-label caption>Email Link: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.email_link }}</q-item-label>
-                                                                                </q-item-section>
-                                                                            </q-item>
-                                                                            <q-separator></q-separator>
-                                                                            <q-item>
-                                                                                <q-item-section>
-                                                                                    <q-item-label caption>Email Comfirm: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.email_comfirm }}</q-item-label>
-                                                                                </q-item-section>
-                                                                            </q-item>
-                                                                            <q-separator></q-separator>
-                                                                            <q-item>
-                                                                                <q-item-section>
-                                                                                    <q-item-label caption>Email Token: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.email_token }}</q-item-label>
                                                                                 </q-item-section>
                                                                             </q-item>
                                                                             <q-separator></q-separator>
@@ -158,8 +123,18 @@
                                                                             <q-separator></q-separator>
                                                                             <q-item>
                                                                                 <q-item-section>
-                                                                                    <q-item-label caption>Deleted: </q-item-label>
-                                                                                    <q-item-label class="text-bold">{{ item.deleted }}</q-item-label>
+                                                                                    <q-item-label caption>Email Verified At: </q-item-label>
+                                                                                    <q-item-label class="text-bold">
+                                                                                        <q-chip v-if="item.email_verified_at" dense size="13px" :label="item.email_verified_at | relativeDate">
+                                                                                        <q-tooltip
+                                                                                        content-class="bg-accent"
+                                                                                        transition-show="scale"
+                                                                                        transition-hide="scale"
+                                                                                        >
+                                                                                        {{ item.email_verified_at | humanDatetime}}
+                                                                                        </q-tooltip>
+                                                                                        </q-chip>
+                                                                                    </q-item-label>
                                                                                 </q-item-section>
                                                                             </q-item>
                                                                             <q-separator></q-separator>

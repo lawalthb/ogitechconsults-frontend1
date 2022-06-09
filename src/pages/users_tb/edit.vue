@@ -246,6 +246,33 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 col-12">
+                                                                Email Verified At 
+                                                            </div>
+                                                            <div class="col-sm-9 col-12">
+                                                                <ValidationProvider :rules="{}" name="Email Verified At" v-slot="{ errors, invalid, validated }">
+                                                                    <q-input outlined dense  v-model.trim="formData.email_verified_at" :error="invalid && validated" :error-message="errors[0]"   >
+                                                                    <template v-slot:prepend>
+                                                                        <q-icon name="date_range" class="cursor-pointer">
+                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                                        <q-date     mask="YYYY-MM-DD HH:mm" v-model="formData.email_verified_at" />
+                                                                        </q-popup-proxy>
+                                                                        </q-icon>
+                                                                    </template>
+                                                                    <template v-slot:append>
+                                                                        <q-icon name="access_time" class="cursor-pointer">
+                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                                        <q-time v-model="formData.email_verified_at" mask="YYYY-MM-DD HH:mm" />
+                                                                        </q-popup-proxy>
+                                                                        </q-icon>
+                                                                    </template>
+                                                                    </q-input>
+                                                                </ValidationProvider>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--[form-content-end]-->
                                                 <div v-if="showSubmitButton" class="text-center q-my-md">
@@ -305,8 +332,9 @@
 		data() {
             return {
 				formData: {
-					firstname: "", lastname: "", matric_no: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", 
+					firstname: "", lastname: "", matric_no: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", email_verified_at: "", 
 				},
+				email_verified_atPicker:false,
         	}
 		},
 		computed: {
@@ -360,7 +388,7 @@
             },
 			resetForm (){
 				//reset form fields value
-				this.formData = {firstname: "", lastname: "", matric_no: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", };
+				this.formData = {firstname: "", lastname: "", matric_no: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", email_verified_at: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

@@ -139,6 +139,13 @@ let routes = [
 				props: true
 			},
 	
+			{ 
+				path: '/order_tb/user_orders', 
+				name: 'order_tbuser_orders', 
+				component: () => import('pages/order_tb/user_orders.vue'), 
+				props: true
+			},
+	
 
 //departments_tb routes
 			{ 
@@ -377,6 +384,57 @@ let routes = [
 			},
 		
 
+//user_orders_view routes
+			{ 
+				path: '/user_orders_view/', 
+				name: 'user_orders_viewlist', 
+				component: () => import('pages/user_orders_view/list.vue'), 
+				props: true
+			},
+			{ 
+				path: '/user_orders_view/(list|index)/:fieldName?/:fieldValue?', 
+				name: 'user_orders_viewlistfilter', 
+				component: () => import('pages/user_orders_view/list.vue'), 
+				props: true
+			},
+	
+
+//level routes
+			{ 
+				path: '/level/', 
+				name: 'levellist', 
+				component: () => import('pages/level/list.vue'), 
+				props: true
+			},
+			{ 
+				path: '/level/(list|index)/:fieldName?/:fieldValue?', 
+				name: 'levellistfilter', 
+				component: () => import('pages/level/list.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/level/view/:id', 
+				name: 'levelview', 
+				component: () => import('pages/level/view.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/level/add', 
+				name: 'leveladd', 
+				component: () => import('pages/level/add.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/level/edit/:id', 
+				name: 'leveledit', 
+				component: () => import('pages/level/edit.vue'), 
+				props: true
+			},
+		
+
 			
 			
 //Password reset routes
@@ -400,6 +458,20 @@ let routes = [
 			},
 	
 			
+//Email verify routes
+			{ 
+				path: '/index/verifyemail', 
+				name: 'verifyemail', 
+				component: () => import('pages/index/verifyemail.vue'), 
+				props: true
+			},
+			{ 
+				path: '/index/emailverified', 
+				name: 'emailverified', 
+				component: () => import('pages/index/emailverified.vue'), 
+				props: true
+			},
+	
 			
 			{ 
 				path:  '/error/forbidden', 

@@ -17,10 +17,10 @@
                 </div>
             </q-card>
         </template>
-        <section class="page-section q-mb-md" >
+        <section class="page-section q-mb-md no-border-radius animated swing" >
             <div class="container">
                 <div class="row q-col-gutter-x-md">
-                    <div class="col-4 comp-grid" >
+                    <div class="col-10 comp-grid" >
                         <q-card  :flat="isSubPage" class=" nice-shadow-18">
                             <div >
                                 <div class="relative-position" style="min-height:100px">
@@ -28,38 +28,34 @@
                                         <div class="row q-col-gutter-x-md">
                                             <div class="col">
                                                 <q-item>
-                                                    <q-item-section class="col-md-auto">
-                                                        <q-item-label caption>Product Name </q-item-label>
-                                                    </q-item-section>
                                                     <q-item-section>
+                                                        <q-item-label caption>Product Name: </q-item-label>
                                                         <q-item-label class="text-bold">{{ item.product_name }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
                                                 <q-item>
-                                                    <q-item-section class="col-md-auto">
-                                                        <q-item-label caption>Description </q-item-label>
-                                                    </q-item-section>
                                                     <q-item-section>
+                                                        <q-item-label caption>Description: </q-item-label>
                                                         <q-item-label class="text-bold">{{ item.description }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
                                                 <q-item>
-                                                    <q-item-section class="col-md-auto">
-                                                        <q-item-label caption>Sell Rate </q-item-label>
-                                                    </q-item-section>
                                                     <q-item-section>
+                                                        <q-item-label caption>Sell Rate: </q-item-label>
                                                         <q-item-label class="text-bold">{{ item.sell_rate }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
                                                 <q-item>
-                                                    <q-item-section class="col-md-auto">
-                                                        <q-item-label caption>Vendor Name: </q-item-label>
-                                                    </q-item-section>
                                                     <q-item-section>
-                                                        <q-item-label class="text-bold">{{ item.vendorFullname }}</q-item-label>
+                                                        <q-item-label caption>Vendor Name: </q-item-label>
+                                                        <q-item-label class="text-bold">
+                                                            <q-btn v-if="item.vendor_id" :to="`/vendors_tb/view/${item.vendor_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                  {{ item.vendors_tb_name }}
+                                                            </q-btn>
+                                                        </q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>

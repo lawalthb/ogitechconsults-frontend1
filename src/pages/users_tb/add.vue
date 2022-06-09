@@ -123,6 +123,33 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Email Verified At 
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <ValidationProvider :rules="{}" name="Email Verified At" v-slot="{ errors, invalid, validated }">
+                                                        <q-input outlined dense  v-model.trim="formData.email_verified_at" :error="invalid && validated" :error-message="errors[0]"   >
+                                                        <template v-slot:prepend>
+                                                            <q-icon name="date_range" class="cursor-pointer">
+                                                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                            <q-date     mask="YYYY-MM-DD HH:mm" v-model="formData.email_verified_at" />
+                                                            </q-popup-proxy>
+                                                            </q-icon>
+                                                        </template>
+                                                        <template v-slot:append>
+                                                            <q-icon name="access_time" class="cursor-pointer">
+                                                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                            <q-time v-model="formData.email_verified_at" mask="YYYY-MM-DD HH:mm" />
+                                                            </q-popup-proxy>
+                                                            </q-icon>
+                                                        </template>
+                                                        </q-input>
+                                                    </ValidationProvider>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div v-if="showSubmitButton" class="text-center q-my-md">
                                         <q-btn type="submit"    :rounded="false"  color="primary"  no-caps  unelevated   :disabled="invalid" icon-right="send" :loading="saving">
@@ -165,8 +192,9 @@
 		data() {
             return {
 				formData: {
-					firstname: "", email: "", password: "", confirm_password: "", photo: "", 
+					firstname: "", email: "", password: "", confirm_password: "", photo: "", email_verified_at: "", 
 				},
+				email_verified_atPicker:false,
 			}
 		},
 		computed: {
@@ -207,7 +235,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {firstname: "", email: "", password: "", confirm_password: "", photo: "", };
+				this.formData = {firstname: "", email: "", password: "", confirm_password: "", photo: "", email_verified_at: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

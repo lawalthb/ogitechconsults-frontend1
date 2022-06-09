@@ -14,9 +14,9 @@
                             </div>
                         </div>
                         <div class="col-md-auto col-12 " >
-                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/products_tb/add`" class="full-width" >
-                                <q-icon name="add"></q-icon>                                
-                                Add New Products Tb 
+                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/user_orders_view/index`" class="full-width" >
+                                <q-icon name="airplay"></q-icon>                                
+                                Display Order List 
                             </q-btn>
                         </div>
                         <div class="col-md-auto col-12 " >
@@ -49,61 +49,110 @@
                                 </template>
                                 <div class="relative-position">
                                     <div class="row q-col-gutter-md">
-                                        <!-- Master Page Start -->
                                         <div class="col">
-                                            <template >
-                                                <q-table :loading="loading" hide-bottom  grid card-container-class="q-col-gutter-md justify-start" 
+                                            <!-- Master Page Start -->
+                                            <!-- page records template -->
+                                            <template v-if="!loading">
+                                                <q-table 
+                                                grid
+                                                table-header-class="text-h4"
+                                                card-container-class="q-col-gutter-md justify-start"
+                                                :bordered="false"
                                                 :columns="$menus.Products_TbTableHeader2Items" 
-                                                :data="records" 
+                                                :data="records"
+                                                binary-state-sort
+                                                :selected.sync="selectedItems"
+                                                selection="multiple"
                                                 row-key="product_id" 
                                                 :pagination.sync="pagination"
-                                                @request="setPagination" 
-                                                no-data-label="No Record Found">
+                                                hide-bottom
+                                                @request="setPagination"
+                                                :loading="loading">
                                                 <template v-slot:item="props">
                                                     <div class="col-sm-6 col-md-3 col-12">
-                                                        <q-card :bordered="false"   class="text-center nice-shadow-18 animated zoomIn nice-shadow-18 animated zoomIn">
-                                                            <q-card-section v-ripple @click="openPageDialog({ page: 'products_tb/view', url: `products_tb/view/${props.row.product_id}`}, { closeBtn: true })" class="cursor-pointer">
-                                                                <div class="text-bold ellipsis">{{ props.row.product_name }}</div>
-                                                                <div class="text-caption ellipsis">{{ props.row.vendor_id }}</div>
-                                                            </q-card-section>
-                                                            <q-separator></q-separator>
-                                                            <q-card-actions class="row q-col-gutter-xs justify-end">
-                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
-                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
-                                                                        <q-list dense rounded nav>
-                                                                            <q-item link clickable v-ripple :to="`/products_tb/view/${props.row.product_id}`">
-                                                                                <q-item-section>
-                                                                                    <q-icon color="primary"  size="sm" name="visibility"></q-icon>
-                                                                                </q-item-section>
-                                                                                <q-item-section>View</q-item-section>
-                                                                            </q-item>
-                                                                            <q-item link clickable v-ripple :to="`/products_tb/edit/${props.row.product_id}`">
-                                                                                <q-item-section>
-                                                                                    <q-icon color="positive"  size="sm" name="edit"></q-icon>
-                                                                                </q-item-section>
-                                                                                <q-item-section>Edit</q-item-section>
-                                                                            </q-item>
-                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.product_id)">
-                                                                                <q-item-section>
-                                                                                    <q-icon color="negative"  size="sm" name="clear"></q-icon>
-                                                                                </q-item-section>
-                                                                                <q-item-section>Delete</q-item-section>
-                                                                            </q-item>
-                                                                        </q-list>
-                                                                    </q-menu>
-                                                                </q-btn>
-                                                            </q-card-actions>
-                                                        </q-card>
+                                                        <div :class="{selected: isCurrentRecord(props.row)}" class="grid-style-transition" :style="props.selected ? 'transform: scale(0.95);' : ''">
+                                                            <q-card  class="nice-shadow-18 nice-shadow-18">
+                                                                <q-list dense>
+                                                                    <q-item>
+                                                                        <q-item-section  class="">
+                                                                            <q-item-label caption>
+                                                                                Product Name
+                                                                            </q-item-label>
+                                                                            <q-item-label class="text-bold">
+                                                                                {{ props.row.product_name }}
+                                                                            </q-item-label>
+                                                                        </q-item-section>
+                                                                    </q-item>
+                                                                    <q-separator inset></q-separator>
+                                                                    <q-item>
+                                                                        <q-item-section  class="">
+                                                                            <q-item-label class="text-bold">
+                                                                                <image-viewer image-size="medium" image-preview-size="" :src="props.row.image" width="50px" height="50px" :num-display="1">
+                                                                                </image-viewer>
+                                                                            </q-item-label>
+                                                                        </q-item-section>
+                                                                    </q-item>
+                                                                    <q-item>
+                                                                        <q-item-section  class="">
+                                                                            <q-item-label caption>
+                                                                                Price
+                                                                            </q-item-label>
+                                                                            <q-item-label class="text-bold">
+                                                                                {{ props.row.sell_rate }}
+                                                                            </q-item-label>
+                                                                        </q-item-section>
+                                                                    </q-item>
+                                                                    <q-separator inset></q-separator>
+                                                                    <q-item>
+                                                                        <q-item-section  class="">
+                                                                            <q-item-label caption>
+                                                                                Vendor's Name
+                                                                            </q-item-label>
+                                                                            <q-item-label class="text-bold">
+                                                                                <q-btn v-if="props.row.vendor_id" @click="openPageDialog({ page: 'vendors_tb/', url: `/vendors_tb/view/${props.row.vendor_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                                      {{ props.row.vendors_tb_name }}
+                                                                                </q-btn>
+                                                                            </q-item-label>
+                                                                        </q-item-section>
+                                                                    </q-item>
+                                                                    <q-separator inset></q-separator>
+                                                                </q-list>
+                                                                <q-separator></q-separator>
+                                                                <div class="row justify-between">
+                                                                    <div class="q-pa-sm"><q-checkbox dense v-model="props.selected"></q-checkbox></div>
+                                                                    <q-card-actions class="row justify-center">
+                                                                        <div><q-btn size="sm" icon="add_shopping_cart" label="Click to Order" glossy outline flat :rounded="false"  no-caps  unelevated  push padding="xs" color="primary" title="Click to Order1"  :to="`/products_tb/view/${props.row.product_id}`">
+                                                                        </q-btn></div>
+                                                                    </q-card-actions>
+                                                                </div>
+                                                            </q-card>
+                                                        </div>
                                                     </div>
                                                 </template>
                                                 </q-table>
                                             </template>
+                                            <!-- page loading indicator template -->
                                             <template v-if="loading">
+                                                <div class="q-my-md">
+                                                    <div class="row q-col-gutter-md">
+                                                        <div v-for="n in 8" :key="n" class="col-md-3">
+                                                            <q-card flat class="q-pa-md">
+                                                                <q-skeleton height="150px" square />
+                                                                <q-card-section>
+                                                                    <q-skeleton type="text" class="text-subtitle1" />
+                                                                    <q-skeleton type="text" width="50%" class="text-subtitle1" />
+                                                                    <q-skeleton type="text" class="text-caption" />
+                                                                </q-card-section>
+                                                            </q-card>
+                                                        </div>   
+                                                    </div>   
+                                                </div>
                                                 <q-inner-loading :showing="loading">
                                                     <q-spinner color="primary" size="30px"> 
                                                     </q-spinner>
                                                 </q-inner-loading>
                                             </template>
+                                            <!-- page empty record template -->
                                             <template v-if="!loading && !records.length">
                                                 <q-card :flat="$q.screen.gt.md">
                                                     <q-card-section>
@@ -113,6 +162,7 @@
                                                     </q-card-section>
                                                 </q-card>
                                             </template>
+                                            <!-- page footer template -->
                                             <div v-if="showFooter" class="">
                                                 <div class="q-pa-sm" v-show="!loading">
                                                     <div class="row justify-between">
@@ -131,7 +181,7 @@
                                                         </div>
                                                     </div>  
                                                 </div>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
@@ -168,6 +218,10 @@
 			apiPath : {
 				type : String,
 				default : 'products_tb/shop',
+			},
+			limit: {
+				type: String,
+				default: "20",
 			},
 			multiCheckbox: {
 				type: Boolean,

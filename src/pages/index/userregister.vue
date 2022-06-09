@@ -39,31 +39,16 @@
                                                     Firstname *
                                                 </div>
                                                 <div class="col-sm-9 col-12">
+                                                    <check-duplicate v-model="formData.firstname" check-path="components_data/users_tb_firstname_exist/" v-slot="checker">
                                                     <ValidationProvider :rules="{required:true}" name="Firstname" v-slot="{ errors, invalid, validated }">
                                                         <q-input outlined dense  ref="ctrlfirstname" v-model.trim="formData.firstname"  label="Firstname" type="text" placeholder="Enter Firstname"   list="firstname_list"    
-                                                        class="" :error="invalid && validated" :error-message="errors[0]">
+                                                        class="" :error="(invalid && validated) || checker.exist" :error-message="errors[0] || 'Not available'">
                                                         </q-input>
                                                         <datalist id="firstname_list">
                                                         <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
                                                         </datalist>
                                                     </ValidationProvider>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-12">
-                                                    Lastname *
-                                                </div>
-                                                <div class="col-sm-9 col-12">
-                                                    <ValidationProvider :rules="{required:true}" name="Lastname" v-slot="{ errors, invalid, validated }">
-                                                        <q-input outlined dense  ref="ctrllastname" v-model.trim="formData.lastname"  label="Lastname" type="text" placeholder="Enter Lastname"   list="lastname_list"    
-                                                        class="" :error="invalid && validated" :error-message="errors[0]">
-                                                        </q-input>
-                                                        <datalist id="lastname_list">
-                                                        <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                        </datalist>
-                                                    </ValidationProvider>
+                                                    </check-duplicate>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,6 +130,23 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Photo 
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <ValidationProvider :rules="{}" name="Photo" v-slot="{ errors, invalid, validated }">
+                                                        <div class="q-mb-sm">
+                                                            <q-uploader-input :max-files="1" :max-file-size="3" accept=".jpg,.png,.gif,.jpeg" :multiple="false" square flat bordered style="width:100%" label="Choose files or drop files here" upload-path="fileuploader/upload/photo" v-model="formData.photo"></q-uploader-input>
+                                                            <small class="q-pa-sm text-negative" v-if="invalid && validated">{{errors[0]}}</small>
+                                                        </div>
+                                                        <!--photoDropOptions-->
+                                                    </ValidationProvider>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input name="ctrlemail_verified_at"  ref="ctrlemail_verified_at" v-model="formData.email_verified_at" type="hidden" />
                                     </div>
                                     <div v-if="showSubmitButton" class="text-center q-my-md">
                                         <q-btn    :rounded="false"  color="primary"  no-caps  unelevated   type="submit" :disabled="invalid" icon-right="send" :loading="saving">
@@ -187,7 +189,7 @@
 		data() {
             return {
 				formData: {
-					firstname: "", lastname: "", email: "", department: "", password: "", confirm_password: "", 
+					firstname: "", email: "", department: "", password: "", confirm_password: "", photo: "", email_verified_at: "", 
 				},
 			}
 		},
@@ -232,7 +234,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {firstname: "", lastname: "", email: "", department: "", password: "", confirm_password: "", };
+				this.formData = {firstname: "", email: "", department: "", password: "", confirm_password: "", photo: "", email_verified_at: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

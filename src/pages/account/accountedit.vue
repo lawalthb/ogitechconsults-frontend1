@@ -15,10 +15,10 @@
                                                     <div class="col-12">
                                                         <div class="row">
                                                             <div class="col-sm-3 col-12">
-                                                                Matric No *
+                                                                Matric No 
                                                             </div>
                                                             <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{required:true}" name="Matric No" v-slot="{ errors, invalid, validated }">
+                                                                <ValidationProvider :rules="{}" name="Matric No" v-slot="{ errors, invalid, validated }">
                                                                     <q-input outlined dense  ref="ctrlmatric_no" v-model.trim="formData.matric_no"  label="Matric No" type="text" placeholder="Enter Matric No"   list="matric_no_list"    
                                                                     class="" :error="invalid && validated" :error-message="errors[0]">
                                                                     </q-input>
@@ -86,12 +86,16 @@
                                                                 Department *
                                                             </div>
                                                             <div class="col-sm-9 col-12">
-                                                                <api-data-source @loaded="response => mapOptionField(response, 'department')"  api-path="components_data/department_id_option_list_2"  :query-params="filters" v-slot="req">
-                                                                    <ValidationProvider :rules="{required:true}" name="Department" v-slot="{ errors, invalid, validated }">
-                                                                        <q-select   :loading="req.loading"  outlined dense  ref="ctrldepartment" emit-value map-options  v-model="formData.department" :options="req.response" label="Department"  :error="invalid && validated" :error-message="errors[0]" >
-                                                                        </q-select> 
-                                                                    </ValidationProvider>
-                                                                </api-data-source>
+                                                                <ValidationProvider :rules="{required:true}" name="Department" v-slot="{ errors, invalid, validated }">
+                                                                    <q-input outlined dense  ref="ctrldepartment" v-model.trim="formData.department"  label="Department" type="text" placeholder="Enter Department"   list="department_list"  readonly  
+                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
+                                                                    </q-input>
+                                                                    <api-data-source   api-path="components_data/department_id_option_list_2"  :query-params="filters" v-slot="req">
+                                                                        <datalist id="department_list">
+                                                                        <option v-for="(menu, index) in req.response" :key="index" :value="menu.value">{{ menu.label }}</option>
+                                                                        </datalist>
+                                                                    </api-data-source>
+                                                                </ValidationProvider>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -132,57 +136,6 @@
                                                     <div class="col-12">
                                                         <div class="row">
                                                             <div class="col-sm-3 col-12">
-                                                                Email Link 
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{email:true}" name="Email Link" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrlemail_link" v-model.trim="formData.email_link"  label="Email Link" type="email" placeholder="Enter Email Link"   list="email_link_list"    
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <datalist id="email_link_list">
-                                                                    <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                    </datalist>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
-                                                                Email Comfirm *
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{required:true}" name="Email Comfirm" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrlemail_comfirm" v-model.trim="formData.email_comfirm"  label="Email Comfirm" type="number" placeholder="Enter Email Comfirm"   step="any" list="email_comfirm_list"    
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <datalist id="email_comfirm_list">
-                                                                    <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                    </datalist>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
-                                                                Email Token 
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{email:true}" name="Email Token" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrlemail_token" v-model.trim="formData.email_token"  label="Email Token" type="email" placeholder="Enter Email Token"   list="email_token_list"    
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <datalist id="email_token_list">
-                                                                    <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                    </datalist>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
                                                                 Gender 
                                                             </div>
                                                             <div class="col-sm-9 col-12">
@@ -190,23 +143,6 @@
                                                                     <q-field :error="invalid && validated" :error-message="errors[0]"  borderless  >
                                                                     <q-option-group ref="ctrlgender" v-model="formData.gender" :options="$menus.genderItems"  :error="invalid && validated" :error-message="errors[0]"   size="md" ></q-option-group>
                                                                     </q-field>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
-                                                                Deleted *
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{required:true}" name="Deleted" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrldeleted" v-model.trim="formData.deleted"  label="Deleted" type="number" placeholder="Enter Deleted"   step="any" list="deleted_list"    
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <datalist id="deleted_list">
-                                                                    <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                    </datalist>
                                                                 </ValidationProvider>
                                                             </div>
                                                         </div>
@@ -223,6 +159,33 @@
                                                                         <small class="q-pa-sm text-negative" v-if="invalid && validated">{{errors[0]}}</small>
                                                                         <div class="q-pa-xs"><file-viewer removable v-model="formData.photo"></file-viewer></div>
                                                                     </div>
+                                                                </ValidationProvider>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 col-12">
+                                                                Email Verified At 
+                                                            </div>
+                                                            <div class="col-sm-9 col-12">
+                                                                <ValidationProvider :rules="{}" name="Email Verified At" v-slot="{ errors, invalid, validated }">
+                                                                    <q-input outlined dense  v-model.trim="formData.email_verified_at" :error="invalid && validated" :error-message="errors[0]"   >
+                                                                    <template v-slot:prepend>
+                                                                        <q-icon name="date_range" class="cursor-pointer">
+                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                                        <q-date     mask="YYYY-MM-DD HH:mm" v-model="formData.email_verified_at" />
+                                                                        </q-popup-proxy>
+                                                                        </q-icon>
+                                                                    </template>
+                                                                    <template v-slot:append>
+                                                                        <q-icon name="access_time" class="cursor-pointer">
+                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                                        <q-time v-model="formData.email_verified_at" mask="YYYY-MM-DD HH:mm" />
+                                                                        </q-popup-proxy>
+                                                                        </q-icon>
+                                                                    </template>
+                                                                    </q-input>
                                                                 </ValidationProvider>
                                                             </div>
                                                         </div>
@@ -286,8 +249,9 @@
 		data() {
             return {
 				formData: {
-					matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", 
+					matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", gender: "", photo: "", email_verified_at: "", 
 				},
+				email_verified_atPicker:false,
         	}
 		},
 		computed: {
@@ -341,7 +305,7 @@
             },
 			resetForm (){
 				//reset form fields value
-				this.formData = {matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", email_link: "", email_comfirm: "1", email_token: "", gender: "", deleted: "0", photo: "", };
+				this.formData = {matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", gender: "", photo: "", email_verified_at: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

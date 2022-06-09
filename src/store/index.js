@@ -12,6 +12,8 @@ import { vendors_tb } from "./vendors_tb.js"
 import { users_tb } from "./users_tb.js"
 import { stock_tb } from "./stock_tb.js"
 import { sales_tb } from "./sales_tb.js"
+import { user_orders_view } from "./user_orders_view.js"
+import { level } from "./level.js"
 Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
 	const Store = new Vuex.Store({
@@ -30,7 +32,9 @@ export default function (/* { ssrContext } */) {
 		vendors_tb,
 		users_tb,
 		stock_tb,
-		sales_tb
+		sales_tb,
+		user_orders_view,
+		level
 		},
 		// enable strict mode (adds overhead!)
 		// for dev mode only
