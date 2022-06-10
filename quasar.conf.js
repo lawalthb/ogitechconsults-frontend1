@@ -48,7 +48,7 @@ module.exports = function (/* ctx */) {
 	  build: {
 		vueRouterMode: 'hash', // available values: 'hash', 'history'
 		env: {
-			APP_NAME: 'consults',
+			APP_NAME: 'OGITECH CONSULTS',
 			API_URL: 'http://localhost:8060/',
 			API_PATH: 'http://localhost:8060/api/'
 		},
@@ -124,8 +124,8 @@ module.exports = function (/* ctx */) {
 		workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
 		workboxOptions: {}, // only for GenerateSW
 		manifest: {
-			name: "consults",
-			short_name: "consults",
+			name: "OGITECH CONSULTS",
+			short_name: "OGITECH CONSULTS",
 			description: "ProjectDescription",
 			display: 'standalone',
 			orientation: 'portrait',
@@ -164,9 +164,9 @@ module.exports = function (/* ctx */) {
 	  // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
 	  cordova: {
 		// noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-		cordovaId: 'com.consults.app',
+		cordovaId: 'com.ogitechconsults.app',
 		version: '1',
-		description: 'consults',
+		description: 'OGITECH CONSULTS',
 	  },
   
 	  // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
@@ -194,7 +194,7 @@ module.exports = function (/* ctx */) {
 		builder: {
 		  // https://www.electron.build/configuration/configuration
   
-		  appId: 'consults'
+		  appId: 'ogitechconsults'
 		},
   
 		// More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

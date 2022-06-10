@@ -74,21 +74,6 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-sm-3 col-12">
-                                                    Department *
-                                                </div>
-                                                <div class="col-sm-9 col-12">
-                                                    <api-data-source @loaded="response => mapOptionField(response, 'department')"  api-path="components_data/department_id_option_list_2"  :query-params="filters" v-slot="req">
-                                                        <ValidationProvider :rules="{required:true}" name="Department" v-slot="{ errors, invalid, validated }">
-                                                            <q-select   :loading="req.loading"  outlined dense  ref="ctrldepartment" emit-value map-options  v-model="formData.department" :options="req.response" label="Department"  :error="invalid && validated" :error-message="errors[0]" >
-                                                            </q-select> 
-                                                        </ValidationProvider>
-                                                    </api-data-source>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-12">
                                                     Password *
                                                 </div>
                                                 <div class="col-sm-9 col-12">
@@ -146,7 +131,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input name="ctrlemail_verified_at"  ref="ctrlemail_verified_at" v-model="formData.email_verified_at" type="hidden" />
                                     </div>
                                     <div v-if="showSubmitButton" class="text-center q-my-md">
                                         <q-btn    :rounded="false"  color="primary"  no-caps  unelevated   type="submit" :disabled="invalid" icon-right="send" :loading="saving">
@@ -189,7 +173,7 @@
 		data() {
             return {
 				formData: {
-					firstname: "", email: "", department: "", password: "", confirm_password: "", photo: "", email_verified_at: "", 
+					firstname: "", email: "", password: "", confirm_password: "", photo: "", 
 				},
 			}
 		},
@@ -234,7 +218,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {firstname: "", email: "", department: "", password: "", confirm_password: "", photo: "", email_verified_at: "", };
+				this.formData = {firstname: "", email: "", password: "", confirm_password: "", photo: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

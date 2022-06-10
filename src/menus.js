@@ -31,7 +31,7 @@ export const AppMenus = {
   {
     "path": "/account",
     "label": "Profile",
-    "icon": "android",
+    "icon": "account_box",
     "iconcolor": "",
     "target": "",
     "submenu": []
@@ -54,6 +54,13 @@ export const AppMenus = {
     "field": "product_name"
   },
   {
+    "label": "Image",
+    "align": "left",
+    "sortable": false,
+    "name": "image",
+    "field": "image"
+  },
+  {
     "label": "Vendor Id",
     "align": "left",
     "sortable": false,
@@ -73,40 +80,19 @@ export const AppMenus = {
     "sortable": false,
     "name": "level",
     "field": "level"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
   }
 ],
 	product_nameItems: [    
 
     ],
 	Products_TbTableHeader2Items: [
-  {
-    "label": "Product Name",
-    "align": "left",
-    "sortable": false,
-    "name": "product_name",
-    "field": "product_name"
-  },
-  {
-    "label": "",
-    "align": "left",
-    "sortable": false,
-    "name": "image",
-    "field": "image"
-  },
-  {
-    "label": "Price",
-    "align": "left",
-    "sortable": false,
-    "name": "sell_rate",
-    "field": "sell_rate"
-  },
-  {
-    "label": "Vendor's Name",
-    "align": "left",
-    "sortable": false,
-    "name": "vendor_id",
-    "field": "vendor_id"
-  },
   {
     "label": "Action",
     "align": "right",
@@ -201,6 +187,13 @@ export const AppMenus = {
     "sortable": false,
     "name": "qty",
     "field": "qty"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
   }
 ],
 	Order_TbTableHeader2Items: [

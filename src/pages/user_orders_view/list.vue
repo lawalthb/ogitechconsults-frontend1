@@ -160,6 +160,12 @@
                                                                 <q-btn icon="menu" padding="xs" round flat color="grey">
                                                                     <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                                         <q-list dense rounded nav>
+                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.order_id)">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="primary"  size="sm" name="cancel"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Cancel Order</q-item-section>
+                                                                            </q-item>
                                                                         </q-list>
                                                                     </q-menu>
                                                                 </q-btn>
@@ -285,6 +291,12 @@
                                                                         <q-btn icon="menu" padding="xs" round flat color="grey">
                                                                             <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                                                 <q-list dense rounded nav>
+                                                                                    <q-item link clickable v-ripple @click="deleteItem(props.row.order_id)">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="primary"  size="sm" name="cancel"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Cancel Order</q-item-section>
+                                                                                    </q-item>
                                                                                 </q-list>
                                                                             </q-menu>
                                                                         </q-btn>

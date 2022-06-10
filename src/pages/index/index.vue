@@ -55,7 +55,8 @@
                                 <q-card  :flat="isSubPage" class="q-pa-md  nice-shadow-6">
                                     <div class="row">
                                         <div class="col text-body1">
-                                            Don't Have an Account?
+                                            <q-btn unelevated icon="account_balance" no-caps color="primary" class="full-width" to="/products_tb/shop">Enter Shop
+                                            </q-btn>
                                         </div>
                                         <div class="col-auto text-right">
                                             <q-btn unelevated icon="account_box" no-caps color="positive" class="full-width" to="/index/register">Register

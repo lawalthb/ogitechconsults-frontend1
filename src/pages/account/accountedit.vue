@@ -86,16 +86,12 @@
                                                                 Department *
                                                             </div>
                                                             <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{required:true}" name="Department" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrldepartment" v-model.trim="formData.department"  label="Department" type="text" placeholder="Enter Department"   list="department_list"  readonly  
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <api-data-source   api-path="components_data/department_id_option_list_2"  :query-params="filters" v-slot="req">
-                                                                        <datalist id="department_list">
-                                                                        <option v-for="(menu, index) in req.response" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                        </datalist>
-                                                                    </api-data-source>
-                                                                </ValidationProvider>
+                                                                <api-data-source @loaded="response => mapOptionField(response, 'department')"  api-path="components_data/department_id_option_list_2"  :query-params="filters" v-slot="req">
+                                                                    <ValidationProvider :rules="{required:true}" name="Department" v-slot="{ errors, invalid, validated }">
+                                                                        <q-select   :loading="req.loading"  outlined dense  ref="ctrldepartment" emit-value map-options  v-model="formData.department" :options="req.response" label="Department"  :error="invalid && validated" :error-message="errors[0]" >
+                                                                        </q-select> 
+                                                                    </ValidationProvider>
+                                                                </api-data-source>
                                                             </div>
                                                         </div>
                                                     </div>

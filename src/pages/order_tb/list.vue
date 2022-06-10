@@ -89,6 +89,22 @@
                                                         <q-td  key="qty" :props="props">
                                                             {{ props.row.qty }}
                                                         </q-td>
+                                                        <q-td key="btnactions" :props="props">
+                                                            <div class="row q-col-gutter-xs justify-end">
+                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                        <q-list dense rounded nav>
+                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.order_id)">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Delete</q-item-section>
+                                                                            </q-item>
+                                                                        </q-list>
+                                                                    </q-menu>
+                                                                </q-btn>
+                                                            </div>
+                                                        </q-td>
                                                     </q-tr>
                                                 </template>
                                                 <!-- End of Table Layout-->
@@ -129,6 +145,22 @@
                                                             <q-separator></q-separator>
                                                             <div class="row justify-between">
                                                                 <div class="q-pa-sm"><q-checkbox  dense v-model="props.selected"></q-checkbox></div>
+                                                                <q-card-actions>
+                                                                    <div class="row q-col-gutter-xs justify-end">
+                                                                        <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                            <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                                <q-list dense rounded nav>
+                                                                                    <q-item link clickable v-ripple @click="deleteItem(props.row.order_id)">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Delete</q-item-section>
+                                                                                    </q-item>
+                                                                                </q-list>
+                                                                            </q-menu>
+                                                                        </q-btn>
+                                                                    </div>
+                                                                </q-card-actions>
                                                             </div>
                                                         </q-card>
                                                     </div>
@@ -185,6 +217,9 @@
                                                     <div class="q-pa-sm" v-show="!loading">
                                                         <div class="row justify-between">
                                                             <div class="row q-col-gutter-md">
+                                                                <div>
+                                                                    <q-btn    :rounded="false"  no-caps  unelevated   color="negative" padding="xs" @click="deleteItem(selectedItems)" v-if="selectedItems.length" icon="delete_sweep" class="q-my-xs" title="Delete Selected"></q-btn>
+                                                                </div>
                                                             </div>
                                                             <div v-if="paginate && totalRecords > 0" class="row q-col-gutter-md justify-center">
                                                                 <div class="col-auto">

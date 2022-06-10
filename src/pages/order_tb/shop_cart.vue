@@ -25,9 +25,25 @@
                             <div >
                                 <ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" @submit.prevent="startSaveRecord()" @reset="resetForm">
                                     <div class="row q-col-gutter-x-md">
-                                        <check-duplicate v-model="formData.order_no" check-path="components_data/order_tb_order_no_exist/" v-slot="checker">
-                                        <input name="ctrlorder_no"  ref="ctrlorder_no" @blur="checker.check" :loading="checker.loading" v-model="formData.order_no" type="hidden" />
-                                        </check-duplicate>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Order No *
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <check-duplicate v-model="formData.order_no" check-path="components_data/order_tb_order_no_exist/" v-slot="checker">
+                                                    <ValidationProvider :rules="{required:true}" name="Order No" v-slot="{ errors, invalid, validated }">
+                                                        <q-input outlined dense  ref="ctrlorder_no" v-model.trim="formData.order_no"  label="Order No" type="number" placeholder="Enter Order No"   step="any" list="order_no_list"  readonly  
+                                                        class="" :error="(invalid && validated) || checker.exist" :error-message="errors[0] || 'Not available'">
+                                                        </q-input>
+                                                        <datalist id="order_no_list">
+                                                        <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
+                                                        </datalist>
+                                                    </ValidationProvider>
+                                                    </check-duplicate>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <input name="ctrlproduct_id"  ref="ctrlproduct_id" v-model="formData.product_id" type="hidden" />
                                         <input name="ctrlvendor_id"  ref="ctrlvendor_id" v-model="formData.vendor_id" type="hidden" />
                                         <input name="ctrluser_id"  ref="ctrluser_id" v-model="formData.user_id" type="hidden" />
@@ -138,7 +154,7 @@
 		data() {
             return {
 				formData: {
-					order_no: this.$utils.randomNum(10), product_id: "", vendor_id: "", user_id: this.$UserID, mat_no: "", rate: "", qty: "1", total_amount: "1", payment_optn: "Cash", date: this.$utils.dateNow(), order_status: "1", sales_status: "1", remark: "no comment", 
+					order_no: this.$utils.randomNum(5), product_id: "", vendor_id: "", user_id: this.$UserID, mat_no: "", rate: "", qty: "1", total_amount: "1", payment_optn: "Cash", date: this.$utils.dateNow(), order_status: "1", sales_status: "1", remark: "no comment", 
 				},
 			}
 		},
@@ -180,7 +196,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {order_no: this.$utils.randomNum(10), product_id: "", vendor_id: "", user_id: this.$UserID, mat_no: "", rate: "", qty: "1", total_amount: "1", payment_optn: "Cash", date: this.$utils.dateNow(), order_status: "1", sales_status: "1", remark: "no comment", };
+				this.formData = {order_no: this.$utils.randomNum(5), product_id: "", vendor_id: "", user_id: this.$UserID, mat_no: "", rate: "", qty: "1", total_amount: "1", payment_optn: "Cash", date: this.$utils.dateNow(), order_status: "1", sales_status: "1", remark: "no comment", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

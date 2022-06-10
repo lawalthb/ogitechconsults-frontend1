@@ -30,7 +30,7 @@
                                                 <q-item>
                                                     <q-item-section>
                                                         <q-item-label caption>Product Name: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.product_name }}</q-item-label>
+                                                        <q-item-label class="text-bold">{{ item.product_name  | truncate(35, '...')}}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
@@ -50,12 +50,8 @@
                                                 <q-separator></q-separator>
                                                 <q-item>
                                                     <q-item-section>
-                                                        <q-item-label caption>Vendor Name: </q-item-label>
-                                                        <q-item-label class="text-bold">
-                                                            <q-btn v-if="item.vendor_id" :to="`/vendors_tb/view/${item.vendor_id}`" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                  {{ item.vendors_tb_name }}
-                                                            </q-btn>
-                                                        </q-item-label>
+                                                        <q-item-label caption>Vendors Name: </q-item-label>
+                                                        <q-item-label class="text-bold">{{ item.vendors_tb_name }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>

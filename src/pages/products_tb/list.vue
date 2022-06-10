@@ -77,7 +77,11 @@
                                                             <q-checkbox dense v-model="props.selected"></q-checkbox>
                                                         </q-td>
                                                         <q-td  key="product_name" :props="props">
-                                                            {{ props.row.product_name }}
+                                                            {{ props.row.product_name  | truncate(35, '...')}}
+                                                        </q-td>
+                                                        <q-td  key="image" :props="props">
+                                                            <image-viewer image-size="medium" image-preview-size="" :src="props.row.image" width="50px" height="50px" :num-display="1">
+                                                            </image-viewer>
                                                         </q-td>
                                                         <q-td  key="vendor_id" :props="props">
                                                             <q-btn v-if="props.row.vendor_id" @click="openPageDialog({ page: 'vendors_tb/view', url: `/vendors_tb/view/${props.row.vendor_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
@@ -92,6 +96,34 @@
                                                         <q-td  key="level" :props="props">
                                                             {{ props.row.level }}
                                                         </q-td>
+                                                        <q-td key="btnactions" :props="props">
+                                                            <div class="row q-col-gutter-xs justify-end">
+                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                        <q-list dense rounded nav>
+                                                                            <q-item link clickable v-ripple :to="`/products_tb/view/${props.row.product_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>View</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple :to="`/products_tb/edit/${props.row.product_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Edit</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.product_id)">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Delete</q-item-section>
+                                                                            </q-item>
+                                                                        </q-list>
+                                                                    </q-menu>
+                                                                </q-btn>
+                                                            </div>
+                                                        </q-td>
                                                     </q-tr>
                                                 </template>
                                                 <!-- End of Table Layout-->
@@ -105,7 +137,16 @@
                                                                         Product Name
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.product_name }}
+                                                                        {{ props.row.product_name  | truncate(35, '...')}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Image
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <image-viewer image-size="medium" image-preview-size="" :src="props.row.image" width="50px" height="50px" :num-display="1">
+                                                                        </image-viewer>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
@@ -140,6 +181,34 @@
                                                             <q-separator></q-separator>
                                                             <div class="row justify-between">
                                                                 <div class="q-pa-sm"><q-checkbox  dense v-model="props.selected"></q-checkbox></div>
+                                                                <q-card-actions>
+                                                                    <div class="row q-col-gutter-xs justify-end">
+                                                                        <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                            <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                                <q-list dense rounded nav>
+                                                                                    <q-item link clickable v-ripple :to="`/products_tb/view/${props.row.product_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>View</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple :to="`/products_tb/edit/${props.row.product_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Edit</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple @click="deleteItem(props.row.product_id)">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Delete</q-item-section>
+                                                                                    </q-item>
+                                                                                </q-list>
+                                                                            </q-menu>
+                                                                        </q-btn>
+                                                                    </div>
+                                                                </q-card-actions>
                                                             </div>
                                                         </q-card>
                                                     </div>
@@ -170,6 +239,9 @@
                                                     <div class="q-pa-sm" v-show="!loading">
                                                         <div class="row justify-between">
                                                             <div class="row q-col-gutter-md">
+                                                                <div>
+                                                                    <q-btn    :rounded="false"  no-caps  unelevated   color="negative" padding="xs" @click="deleteItem(selectedItems)" v-if="selectedItems.length" icon="delete_sweep" class="q-my-xs" title="Delete Selected"></q-btn>
+                                                                </div>
                                                             </div>
                                                             <div v-if="paginate && totalRecords > 0" class="row q-col-gutter-md justify-center">
                                                                 <div class="col-auto">
@@ -237,7 +309,7 @@
 			pageTitle:{
 				get: function () {
 					//set browser page title
-					return "Products Tb"
+					return "Items"
 				}
 			},
 			records: {

@@ -458,20 +458,6 @@ let routes = [
 			},
 	
 			
-//Email verify routes
-			{ 
-				path: '/index/verifyemail', 
-				name: 'verifyemail', 
-				component: () => import('pages/index/verifyemail.vue'), 
-				props: true
-			},
-			{ 
-				path: '/index/emailverified', 
-				name: 'emailverified', 
-				component: () => import('pages/index/emailverified.vue'), 
-				props: true
-			},
-	
 			
 			{ 
 				path:  '/error/forbidden', 
