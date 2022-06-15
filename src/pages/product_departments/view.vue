@@ -8,7 +8,7 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Admins Tb Details</div>
+                                        <div class="text-h6 text-primary">Product Departments Details</div>
                                     </div>
                                 </div>
                             </div>
@@ -29,73 +29,29 @@
                                             <div class="col">
                                                 <q-item>
                                                     <q-item-section>
-                                                        <q-item-label caption>Admin Id: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.admin_id }}</q-item-label>
+                                                        <q-item-label caption>Product Department Id: </q-item-label>
+                                                        <q-item-label class="text-bold">{{ item.product_department_id }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
                                                 <q-item>
                                                     <q-item-section>
-                                                        <q-item-label caption>Firstname: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.firstname }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Lastname: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.lastname }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Email: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.email }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Username: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.username }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Admin Type: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.admin_type }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Status: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.status }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Reg Date: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.reg_date }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Deleted: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.deleted }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Photo: </q-item-label>
+                                                        <q-item-label caption>Product Id: </q-item-label>
                                                         <q-item-label class="text-bold">
-                                                            <image-viewer image-size="large" image-preview-size="" :src="item.photo" width="400px" height="400px" :num-display="1">
-                                                            </image-viewer>
+                                                            <q-btn v-if="item.product_id" @click="openPageDialog({ page: 'products_tb/view', url: `/products_tb/view/${item.product_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Products Tb Detail
+                                                            </q-btn>
+                                                        </q-item-label>
+                                                    </q-item-section>
+                                                </q-item>
+                                                <q-separator></q-separator>
+                                                <q-item>
+                                                    <q-item-section>
+                                                        <q-item-label caption>Department Id: </q-item-label>
+                                                        <q-item-label class="text-bold">
+                                                            <q-btn v-if="item.department_id" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${item.department_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Departments Tb Detail
+                                                            </q-btn>
                                                         </q-item-label>
                                                     </q-item-section>
                                                 </q-item>
@@ -104,13 +60,13 @@
                                                     <q-btn icon="menu" padding="xs" round flat color="grey">
                                                         <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                             <q-list dense rounded nav>
-                                                                <q-item link clickable v-ripple :to="`/admins_tb/edit/${item.admin_id}`">
+                                                                <q-item link clickable v-ripple :to="`/product_departments/edit/${item.product_department_id}`">
                                                                     <q-item-section>
                                                                         <q-icon color="positive"  size="sm" name="edit"></q-icon>
                                                                     </q-item-section>
                                                                     <q-item-section>Edit</q-item-section>
                                                                 </q-item>
-                                                                <q-item link clickable v-ripple @click="deleteItem(item.admin_id)">
+                                                                <q-item link clickable v-ripple @click="deleteItem(item.product_department_id)">
                                                                     <q-item-section>
                                                                         <q-icon color="negative"  size="sm" name="clear"></q-icon>
                                                                     </q-item-section>
@@ -144,30 +100,30 @@
 	import { ViewPageMixin } from "../../mixins/viewpage.js";
 	import { mapActions, mapGetters, mapState } from "vuex";
 	export default {
-		name: 'viewAdminstbPage',
+		name: 'viewProductdepartmentsPage',
 		components: {
 		},
 		mixins: [PageMixin, ViewPageMixin ],
 		props: {
 			pageName: {
 				type : String,
-				default : 'admins_tb',
+				default : 'product_departments',
 			},
 			idName: {
 				type: String,
-				default: 'admin_id',
+				default: 'product_department_id',
 			},
 			routeName : {
 				type : String,
-				default : 'admins_tbview',
+				default : 'product_departmentsview',
 			},
 			pagePath: {
 				type : String,
-				default : 'admins_tb/view',
+				default : 'product_departments/view',
 			},
 			apiPath: {
 				type : String,
-				default : 'admins_tb/view',
+				default : 'product_departments/view',
 			},
 		},
 		data() {
@@ -181,15 +137,15 @@
 		computed: {
 			pageTitle:{
 				get: function () {
-					return "Admins Tb Details"
+					return "Product Departments Details"
 				}
 			},
 			currentRecord: {
 				get: function () {
-					return this.$store.getters["admins_tb/currentRecord"];
+					return this.$store.getters["product_departments/currentRecord"];
 				},
 				set: function (value) {
-					this.$store.commit("admins_tb/setCurrentRecord", value);
+					this.$store.commit("product_departments/setCurrentRecord", value);
 				},
 			},
 		},
@@ -199,7 +155,7 @@
 			}
 		},
 		methods: {
-			...mapActions("admins_tb", [ "fetchRecord", "deleteRecord"]),
+			...mapActions("product_departments", [ "fetchRecord", "deleteRecord"]),
 		},
 		watch: {
 			$route (to, from){

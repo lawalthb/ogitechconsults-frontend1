@@ -162,20 +162,6 @@ let routes = [
 			},
 	
 			{ 
-				path: '/departments_tb/view/:id', 
-				name: 'departments_tbview', 
-				component: () => import('pages/departments_tb/view.vue'), 
-				props: true
-			},
-	
-			{ 
-				path: '/departments_tb/add', 
-				name: 'departments_tbadd', 
-				component: () => import('pages/departments_tb/add.vue'), 
-				props: true
-			},
-	
-			{ 
 				path: '/departments_tb/edit/:id', 
 				name: 'departments_tbedit', 
 				component: () => import('pages/departments_tb/edit.vue'), 
@@ -431,6 +417,52 @@ let routes = [
 				path: '/level/edit/:id', 
 				name: 'leveledit', 
 				component: () => import('pages/level/edit.vue'), 
+				props: true
+			},
+		
+
+//permissions routes
+
+//roles routes
+
+//model_has_roles routes
+
+//model_has_permissions routes
+
+//role_has_permissions routes
+
+//product_departments routes
+			{ 
+				path: '/product_departments/', 
+				name: 'product_departmentslist', 
+				component: () => import('pages/product_departments/list.vue'), 
+				props: true
+			},
+			{ 
+				path: '/product_departments/(list|index)/:fieldName?/:fieldValue?', 
+				name: 'product_departmentslistfilter', 
+				component: () => import('pages/product_departments/list.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/product_departments/view/:id', 
+				name: 'product_departmentsview', 
+				component: () => import('pages/product_departments/view.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/product_departments/add', 
+				name: 'product_departmentsadd', 
+				component: () => import('pages/product_departments/add.vue'), 
+				props: true
+			},
+	
+			{ 
+				path: '/product_departments/edit/:id', 
+				name: 'product_departmentsedit', 
+				component: () => import('pages/product_departments/edit.vue'), 
 				props: true
 			},
 		

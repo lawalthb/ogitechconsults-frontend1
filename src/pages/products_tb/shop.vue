@@ -8,7 +8,7 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Products Tb</div>
+                                        <div class="text-h6 text-primary">Items</div>
                                     </div>
                                 </div>
                             </div>

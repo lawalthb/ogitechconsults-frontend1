@@ -8,7 +8,7 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Admins Tb Details</div>
+                                        <div class="text-h6 text-primary">Model Has Permissions Details</div>
                                     </div>
                                 </div>
                             </div>
@@ -29,74 +29,26 @@
                                             <div class="col">
                                                 <q-item>
                                                     <q-item-section>
-                                                        <q-item-label caption>Admin Id: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.admin_id }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Firstname: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.firstname }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Lastname: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.lastname }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Email: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.email }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Username: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.username }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Admin Type: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.admin_type }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Status: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.status }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Reg Date: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.reg_date }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Deleted: </q-item-label>
-                                                        <q-item-label class="text-bold">{{ item.deleted }}</q-item-label>
-                                                    </q-item-section>
-                                                </q-item>
-                                                <q-separator></q-separator>
-                                                <q-item>
-                                                    <q-item-section>
-                                                        <q-item-label caption>Photo: </q-item-label>
+                                                        <q-item-label caption>Permission Id: </q-item-label>
                                                         <q-item-label class="text-bold">
-                                                            <image-viewer image-size="large" image-preview-size="" :src="item.photo" width="400px" height="400px" :num-display="1">
-                                                            </image-viewer>
+                                                            <q-btn v-if="item.permission_id" @click="openPageDialog({ page: 'permissions/view', url: `/permissions/view/${item.permission_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Permissions Detail
+                                                            </q-btn>
                                                         </q-item-label>
+                                                    </q-item-section>
+                                                </q-item>
+                                                <q-separator></q-separator>
+                                                <q-item>
+                                                    <q-item-section>
+                                                        <q-item-label caption>Model Type: </q-item-label>
+                                                        <q-item-label class="text-bold">{{ item.model_type }}</q-item-label>
+                                                    </q-item-section>
+                                                </q-item>
+                                                <q-separator></q-separator>
+                                                <q-item>
+                                                    <q-item-section>
+                                                        <q-item-label caption>Model Id: </q-item-label>
+                                                        <q-item-label class="text-bold">{{ item.model_id }}</q-item-label>
                                                     </q-item-section>
                                                 </q-item>
                                                 <q-separator></q-separator>
@@ -104,13 +56,13 @@
                                                     <q-btn icon="menu" padding="xs" round flat color="grey">
                                                         <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                             <q-list dense rounded nav>
-                                                                <q-item link clickable v-ripple :to="`/admins_tb/edit/${item.admin_id}`">
+                                                                <q-item link clickable v-ripple :to="`/model_has_permissions/edit/${item.permission_id}`">
                                                                     <q-item-section>
                                                                         <q-icon color="positive"  size="sm" name="edit"></q-icon>
                                                                     </q-item-section>
                                                                     <q-item-section>Edit</q-item-section>
                                                                 </q-item>
-                                                                <q-item link clickable v-ripple @click="deleteItem(item.admin_id)">
+                                                                <q-item link clickable v-ripple @click="deleteItem(item.permission_id)">
                                                                     <q-item-section>
                                                                         <q-icon color="negative"  size="sm" name="clear"></q-icon>
                                                                     </q-item-section>
@@ -144,30 +96,30 @@
 	import { ViewPageMixin } from "../../mixins/viewpage.js";
 	import { mapActions, mapGetters, mapState } from "vuex";
 	export default {
-		name: 'viewAdminstbPage',
+		name: 'viewModelhaspermissionsPage',
 		components: {
 		},
 		mixins: [PageMixin, ViewPageMixin ],
 		props: {
 			pageName: {
 				type : String,
-				default : 'admins_tb',
+				default : 'model_has_permissions',
 			},
 			idName: {
 				type: String,
-				default: 'admin_id',
+				default: 'model_id',
 			},
 			routeName : {
 				type : String,
-				default : 'admins_tbview',
+				default : 'model_has_permissionsview',
 			},
 			pagePath: {
 				type : String,
-				default : 'admins_tb/view',
+				default : 'model_has_permissions/view',
 			},
 			apiPath: {
 				type : String,
-				default : 'admins_tb/view',
+				default : 'model_has_permissions/view',
 			},
 		},
 		data() {
@@ -181,15 +133,15 @@
 		computed: {
 			pageTitle:{
 				get: function () {
-					return "Admins Tb Details"
+					return "Model Has Permissions Details"
 				}
 			},
 			currentRecord: {
 				get: function () {
-					return this.$store.getters["admins_tb/currentRecord"];
+					return this.$store.getters["model_has_permissions/currentRecord"];
 				},
 				set: function (value) {
-					this.$store.commit("admins_tb/setCurrentRecord", value);
+					this.$store.commit("model_has_permissions/setCurrentRecord", value);
 				},
 			},
 		},
@@ -199,7 +151,7 @@
 			}
 		},
 		methods: {
-			...mapActions("admins_tb", [ "fetchRecord", "deleteRecord"]),
+			...mapActions("model_has_permissions", [ "fetchRecord", "deleteRecord"]),
 		},
 		watch: {
 			$route (to, from){

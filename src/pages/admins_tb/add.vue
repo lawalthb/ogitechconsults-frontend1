@@ -188,6 +188,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Photo 
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <ValidationProvider :rules="{}" name="Photo" v-slot="{ errors, invalid, validated }">
+                                                        <div class="q-mb-sm">
+                                                            <q-uploader-input :max-files="1" :max-file-size="3" accept=".jpg,.png,.gif,.jpeg" :multiple="false" square flat bordered style="width:100%" label="Choose files or drop files here" upload-path="fileuploader/upload/photo" v-model="formData.photo"></q-uploader-input>
+                                                            <small class="q-pa-sm text-negative" v-if="invalid && validated">{{errors[0]}}</small>
+                                                        </div>
+                                                        <!--photoDropOptions-->
+                                                    </ValidationProvider>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div v-if="showSubmitButton" class="text-center q-my-md">
                                         <q-btn type="submit"    :rounded="false"  color="primary"  no-caps  unelevated   :disabled="invalid" icon-right="send" :loading="saving">
@@ -230,7 +246,7 @@
 		data() {
             return {
 				formData: {
-					firstname: "", lastname: "", email: "lawalthb@gmail.com", password: "12345", confirm_password: "", username: "", admin_type: "sales_rep", status: "1", deleted: "0", 
+					firstname: "", lastname: "", email: "lawalthb@gmail.com", password: "12345", confirm_password: "", username: "", admin_type: "sales_rep", status: "1", deleted: "0", photo: "", 
 				},
 			}
 		},
@@ -272,7 +288,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {firstname: "", lastname: "", email: "lawalthb@gmail.com", password: "12345", confirm_password: "", username: "", admin_type: "sales_rep", status: "1", deleted: "0", };
+				this.formData = {firstname: "", lastname: "", email: "lawalthb@gmail.com", password: "12345", confirm_password: "", username: "", admin_type: "sales_rep", status: "1", deleted: "0", photo: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

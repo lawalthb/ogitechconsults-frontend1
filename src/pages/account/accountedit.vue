@@ -115,23 +115,6 @@
                                                     <div class="col-12">
                                                         <div class="row">
                                                             <div class="col-sm-3 col-12">
-                                                                Status *
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{required:true}" name="Status" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  ref="ctrlstatus" v-model.trim="formData.status"  label="Status" type="number" placeholder="Enter Status"   step="any" list="status_list"    
-                                                                    class="" :error="invalid && validated" :error-message="errors[0]">
-                                                                    </q-input>
-                                                                    <datalist id="status_list">
-                                                                    <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
-                                                                    </datalist>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
                                                                 Gender 
                                                             </div>
                                                             <div class="col-sm-9 col-12">
@@ -155,33 +138,6 @@
                                                                         <small class="q-pa-sm text-negative" v-if="invalid && validated">{{errors[0]}}</small>
                                                                         <div class="q-pa-xs"><file-viewer removable v-model="formData.photo"></file-viewer></div>
                                                                     </div>
-                                                                </ValidationProvider>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 col-12">
-                                                                Email Verified At 
-                                                            </div>
-                                                            <div class="col-sm-9 col-12">
-                                                                <ValidationProvider :rules="{}" name="Email Verified At" v-slot="{ errors, invalid, validated }">
-                                                                    <q-input outlined dense  v-model.trim="formData.email_verified_at" :error="invalid && validated" :error-message="errors[0]"   >
-                                                                    <template v-slot:prepend>
-                                                                        <q-icon name="date_range" class="cursor-pointer">
-                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
-                                                                        <q-date     mask="YYYY-MM-DD HH:mm" v-model="formData.email_verified_at" />
-                                                                        </q-popup-proxy>
-                                                                        </q-icon>
-                                                                    </template>
-                                                                    <template v-slot:append>
-                                                                        <q-icon name="access_time" class="cursor-pointer">
-                                                                        <q-popup-proxy transition-show="scale" transition-hide="scale">
-                                                                        <q-time v-model="formData.email_verified_at" mask="YYYY-MM-DD HH:mm" />
-                                                                        </q-popup-proxy>
-                                                                        </q-icon>
-                                                                    </template>
-                                                                    </q-input>
                                                                 </ValidationProvider>
                                                             </div>
                                                         </div>
@@ -245,9 +201,8 @@
 		data() {
             return {
 				formData: {
-					matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", gender: "", photo: "", email_verified_at: "", 
+					matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", gender: "", photo: "", 
 				},
-				email_verified_atPicker:false,
         	}
 		},
 		computed: {
@@ -301,7 +256,7 @@
             },
 			resetForm (){
 				//reset form fields value
-				this.formData = {matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", status: "1", gender: "", photo: "", email_verified_at: "", };
+				this.formData = {matric_no: "", firstname: "", lastname: "", phone: "", department: "", level: "", gender: "", photo: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

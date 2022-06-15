@@ -96,12 +96,6 @@
                                                                 <q-btn icon="menu" padding="xs" round flat color="grey">
                                                                     <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                                         <q-list dense rounded nav>
-                                                                            <q-item link clickable v-ripple :to="`/departments_tb/view/${props.row.department_id}`">
-                                                                                <q-item-section>
-                                                                                    <q-icon color="primary"  size="sm" name="visibility"></q-icon>
-                                                                                </q-item-section>
-                                                                                <q-item-section>View</q-item-section>
-                                                                            </q-item>
                                                                             <q-item link clickable v-ripple :to="`/departments_tb/edit/${props.row.department_id}`">
                                                                                 <q-item-section>
                                                                                     <q-icon color="positive"  size="sm" name="edit"></q-icon>
@@ -176,12 +170,6 @@
                                                                         <q-btn icon="menu" padding="xs" round flat color="grey">
                                                                             <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
                                                                                 <q-list dense rounded nav>
-                                                                                    <q-item link clickable v-ripple :to="`/departments_tb/view/${props.row.department_id}`">
-                                                                                        <q-item-section>
-                                                                                            <q-icon color="primary"  size="sm" name="visibility"></q-icon>
-                                                                                        </q-item-section>
-                                                                                        <q-item-section>View</q-item-section>
-                                                                                    </q-item>
                                                                                     <q-item link clickable v-ripple :to="`/departments_tb/edit/${props.row.department_id}`">
                                                                                         <q-item-section>
                                                                                             <q-icon color="positive"  size="sm" name="edit"></q-icon>

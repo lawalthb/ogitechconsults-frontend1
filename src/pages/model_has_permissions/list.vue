@@ -8,15 +8,15 @@
                             <div class="" >
                                 <div class="row  items-center q-col-gutter-sm q-px-sm">
                                     <div class="col">
-                                        <div class="text-h6 text-primary">Products Tb</div>
+                                        <div class="text-h6 text-primary">Model Has Permissions</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-auto col-12 " >
-                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/products_tb/add`" class="full-width" >
+                            <q-btn       :rounded="false"  size=""  color="primary" no-caps  unelevated   :to="`/model_has_permissions/add`" class="full-width" >
                                 <q-icon name="add"></q-icon>                                
-                                Add New Products Tb 
+                                Add New Model Has Permissions 
                             </q-btn>
                         </div>
                         <div class="col-md-auto col-12 " >
@@ -43,7 +43,7 @@
                             <div >
                                 <template v-if="showBreadcrumbs && $route.query.tag">
                                     <q-breadcrumbs class="q-pa-md">
-                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/products_tb"></q-breadcrumbs-el>
+                                        <q-breadcrumbs-el icon="arrow_back" class="text-capitalize" :label="$route.query.tag" to="/model_has_permissions"></q-breadcrumbs-el>
                                         <q-breadcrumbs-el :label="$route.query.label"></q-breadcrumbs-el>
                                     </q-breadcrumbs>
                                 </template>
@@ -58,14 +58,14 @@
                                                 :flat="$q.screen.gt.md"
                                                 table-header-class="text-h4 "
                                                 :bordered="false"
-                                                :columns="$menus.Products_TbTableHeaderItems" 
+                                                :columns="$menus.Model_Has_PermissionsTableHeaderItems" 
                                                 :data="records"
                                                 binary-state-sort
                                                 separator="horizontal"
                                                 :dense="true"
                                                 :selected.sync="selectedItems"
                                                 selection="multiple"
-                                                row-key="product_id" 
+                                                row-key="permission_id" 
                                                 :pagination.sync="pagination"
                                                 hide-bottom
                                                 @request="setPagination"
@@ -76,25 +76,44 @@
                                                         <q-td auto-width>
                                                             <q-checkbox dense v-model="props.selected"></q-checkbox>
                                                         </q-td>
-                                                        <q-td  key="product_name" :props="props">
-                                                            {{ props.row.product_name  | truncate(35, '...')}}
-                                                        </q-td>
-                                                        <q-td  key="image" :props="props">
-                                                            <image-viewer image-size="medium" image-preview-size="" :src="props.row.image" width="50px" height="50px" :num-display="1">
-                                                            </image-viewer>
-                                                        </q-td>
-                                                        <q-td  key="vendor_id" :props="props">
-                                                            <q-btn v-if="props.row.vendor_id" @click="openPageDialog({ page: 'vendors_tb/view', url: `/vendors_tb/view/${props.row.vendor_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                  {{ props.row.vendors_tb_name }}
+                                                        <q-td  key="permission_id" :props="props">
+                                                            <q-btn v-if="props.row.permission_id" @click="openPageDialog({ page: 'permissions/view', url: `/permissions/view/${props.row.permission_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Permissions
                                                             </q-btn>
                                                         </q-td>
-                                                        <q-td  key="department_id" :props="props">
-                                                            <q-btn v-if="props.row.department_id" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${props.row.department_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                  {{ props.row.departments_tb_name }}
-                                                            </q-btn>
+                                                        <q-td  key="model_type" :props="props">
+                                                            {{ props.row.model_type }}
                                                         </q-td>
-                                                        <q-td  key="level" :props="props">
-                                                            {{ props.row.level }}
+                                                        <q-td  key="model_id" :props="props">
+                                                            <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/model_has_permissions/view/${props.row.permission_id}`">{{ props.row.model_id }}</q-btn>
+                                                        </q-td>
+                                                        <q-td key="btnactions" :props="props">
+                                                            <div class="row q-col-gutter-xs justify-end">
+                                                                <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                    <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                        <q-list dense rounded nav>
+                                                                            <q-item link clickable v-ripple :to="`/model_has_permissions/view/${props.row.permission_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>View</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple :to="`/model_has_permissions/edit/${props.row.permission_id}`">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Edit</q-item-section>
+                                                                            </q-item>
+                                                                            <q-item link clickable v-ripple @click="deleteItem(props.row.permission_id)">
+                                                                                <q-item-section>
+                                                                                    <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                </q-item-section>
+                                                                                <q-item-section>Delete</q-item-section>
+                                                                            </q-item>
+                                                                        </q-list>
+                                                                    </q-menu>
+                                                                </q-btn>
+                                                            </div>
                                                         </q-td>
                                                     </q-tr>
                                                 </template>
@@ -106,53 +125,62 @@
                                                             <q-card-section>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Product Name
+                                                                        Permission Id
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.product_name  | truncate(35, '...')}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
-                                                                    <div class="col-auto text-caption">
-                                                                        Image
-                                                                    </div>
-                                                                    <div class="col text-right">
-                                                                        <image-viewer image-size="medium" image-preview-size="" :src="props.row.image" width="50px" height="50px" :num-display="1">
-                                                                        </image-viewer>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
-                                                                    <div class="col-auto text-caption">
-                                                                        Vendor
-                                                                    </div>
-                                                                    <div class="col text-right">
-                                                                        <q-btn v-if="props.row.vendor_id" @click="openPageDialog({ page: 'vendors_tb/view', url: `/vendors_tb/view/${props.row.vendor_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                              {{ props.row.vendors_tb_name }}
+                                                                        <q-btn v-if="props.row.permission_id" @click="openPageDialog({ page: 'permissions/view', url: `/permissions/view/${props.row.permission_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
+                                                                            <q-icon name="visibility" size="xs"  class="q-mr-xs"></q-icon>  Permissions
                                                                         </q-btn>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Department
+                                                                        Model Type
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        <q-btn v-if="props.row.department_id" @click="openPageDialog({ page: 'departments_tb/view', url: `/departments_tb/view/${props.row.department_id}` }, { closeBtn: true })" padding="xs" color="blue-1" unelevated text-color="blue" no-caps >
-                                                                              {{ props.row.departments_tb_name }}
-                                                                        </q-btn>
+                                                                        {{ props.row.model_type }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row q-py-sm q-col-gutter-md justify-content-between">
                                                                     <div class="col-auto text-caption">
-                                                                        Level
+                                                                        Model Id
                                                                     </div>
                                                                     <div class="col text-right">
-                                                                        {{ props.row.level }}
+                                                                        <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/model_has_permissions/view/${props.row.permission_id}`">{{ props.row.model_id }}</q-btn>
                                                                     </div>
                                                                 </div>
                                                             </q-card-section>
                                                             <q-separator></q-separator>
                                                             <div class="row justify-between">
                                                                 <div class="q-pa-sm"><q-checkbox  dense v-model="props.selected"></q-checkbox></div>
+                                                                <q-card-actions>
+                                                                    <div class="row q-col-gutter-xs justify-end">
+                                                                        <q-btn icon="menu" padding="xs" round flat color="grey">
+                                                                            <q-menu auto-close transition-show="flip-right"  transition-hide="flip-left" self="center middle" anchor="center middle">
+                                                                                <q-list dense rounded nav>
+                                                                                    <q-item link clickable v-ripple :to="`/model_has_permissions/view/${props.row.permission_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="primary"  size="sm" name="visibility"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>View</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple :to="`/model_has_permissions/edit/${props.row.permission_id}`">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="positive"  size="sm" name="edit"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Edit</q-item-section>
+                                                                                    </q-item>
+                                                                                    <q-item link clickable v-ripple @click="deleteItem(props.row.permission_id)">
+                                                                                        <q-item-section>
+                                                                                            <q-icon color="negative"  size="sm" name="clear"></q-icon>
+                                                                                        </q-item-section>
+                                                                                        <q-item-section>Delete</q-item-section>
+                                                                                    </q-item>
+                                                                                </q-list>
+                                                                            </q-menu>
+                                                                        </q-btn>
+                                                                    </div>
+                                                                </q-card-actions>
                                                             </div>
                                                         </q-card>
                                                     </div>
@@ -183,6 +211,9 @@
                                                     <div class="q-pa-sm" v-show="!loading">
                                                         <div class="row justify-between">
                                                             <div class="row q-col-gutter-md">
+                                                                <div>
+                                                                    <q-btn    :rounded="false"  no-caps  unelevated   color="negative" padding="xs" @click="deleteItem(selectedItems)" v-if="selectedItems.length" icon="delete_sweep" class="q-my-xs" title="Delete Selected"></q-btn>
+                                                                </div>
                                                             </div>
                                                             <div v-if="paginate && totalRecords > 0" class="row q-col-gutter-md justify-center">
                                                                 <div class="col-auto">
@@ -212,26 +243,26 @@
 	import { ListPageMixin } from "../../mixins/listpage.js";
 	import { mapActions, mapGetters, mapState } from "vuex";
 	export default {
-		name: 'listProductstbPage',
+		name: 'listModelhaspermissionsPage',
 		components: {
         },
 		mixins: [PageMixin, ListPageMixin ],
 		props: {
 			primaryKey : {
 				type : String,
-				default : 'product_id',
+				default : 'permission_id',
 			},
 			pageName : {
 				type : String,
-				default : 'products_tb',
+				default : 'model_has_permissions',
 			},
 			routeName : {
 				type : String,
-				default : 'products_tblist',
+				default : 'model_has_permissionslist',
 			},
 			apiPath : {
 				type : String,
-				default : 'products_tb/index',
+				default : 'model_has_permissions/index',
 			},
 			multiCheckbox: {
 				type: Boolean,
@@ -250,23 +281,23 @@
 			pageTitle:{
 				get: function () {
 					//set browser page title
-					return "Items"
+					return "Model Has Permissions"
 				}
 			},
 			records: {
 				get: function () {
-					return this.$store.getters["products_tb/records"];
+					return this.$store.getters["model_has_permissions/records"];
 				},
 				set: function (value) {
-					this.$store.commit("products_tb/setRecords", value);
+					this.$store.commit("model_has_permissions/setRecords", value);
 				},
 			},
 			currentRecord: {
 				get: function () {
-					return this.$store.getters["products_tb/currentRecord"];
+					return this.$store.getters["model_has_permissions/currentRecord"];
 				},
 				set: function (value) {
-					this.$store.commit("products_tb/setCurrentRecord", value);
+					this.$store.commit("model_has_permissions/setCurrentRecord", value);
 				},
 			},
 		},
@@ -287,7 +318,7 @@
 			},
 		},
 		methods: {
-			...mapActions("products_tb", ["fetchRecords", "deleteRecord"]),
+			...mapActions("model_has_permissions", ["fetchRecords", "deleteRecord"]),
 			load: function() {
 				if (!this.loading) {
 					this.loading = true;

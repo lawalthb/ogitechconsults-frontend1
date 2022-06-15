@@ -108,6 +108,50 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Password *
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <ValidationProvider :rules="{required:true}" name="Password" v-slot="{ errors, invalid, validated }">
+                                                        <q-input outlined dense  ref="ctrlpassword" v-model="formData.password"  label="Password" :type="isPwd ? 'password' : 'text'" placeholder="Enter Password"   list="password_list"    
+                                                        class="" :error="invalid && validated" :error-message="errors[0]">
+                                                        <template v-slot:append>
+                                                            <q-icon
+                                                            :name="isPwd ? 'visibility_off' : 'visibility'"
+                                                            class="cursor-pointer"
+                                                            @click="isPwd = !isPwd"
+                                                            />
+                                                        </template>
+                                                        </q-input>
+                                                        <datalist id="password_list">
+                                                        <option v-for="(menu, index) in $menus.product_nameItems" :key="index" :value="menu.value">{{ menu.label }}</option>
+                                                        </datalist>
+                                                    </ValidationProvider>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-12">
+                                                    Confirm Password *
+                                                </div>
+                                                <div class="col-sm-9 col-12">
+                                                    <ValidationProvider :rules="{required:true, is: formData.password}" name="Confirm Password" v-slot="{ errors, invalid, validated }">
+                                                        <q-input outlined dense  ref="ctrlconfirmpassword" v-model="formData.confirm_password" :type="isCPwd ? 'password' : 'text'" label="Confirm Password" placeholder="Confirm Password" :error="invalid && validated" :error-message="errors[0]" >
+                                                        <template v-slot:append>
+                                                            <q-icon
+                                                            :name="isCPwd ? 'visibility_off' : 'visibility'"
+                                                            class="cursor-pointer"
+                                                            @click="isCPwd = !isCPwd"
+                                                            />
+                                                        </template>
+                                                        </q-input>
+                                                    </ValidationProvider>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div v-if="showSubmitButton" class="text-center q-my-md">
                                         <q-btn type="submit"    :rounded="false"  color="primary"  no-caps  unelevated   :disabled="invalid" icon-right="send" :loading="saving">
@@ -150,7 +194,7 @@
 		data() {
             return {
 				formData: {
-					title: "", name: "", email: "", department_id: "", status: "1", 
+					title: "", name: "", email: "", department_id: "", status: "1", password: "$2y$10$j3/.1g7A1GREXIPPaoaHUO5r8LirGsQIYWPozTQNgN6DjswASmcIy", confirm_password: "", 
 				},
 			}
 		},
@@ -192,7 +236,7 @@
 				}
 			},
 			resetForm (){
-				this.formData = {title: "", name: "", email: "", department_id: "", status: "1", };
+				this.formData = {title: "", name: "", email: "", department_id: "", status: "1", password: "$2y$10$j3/.1g7A1GREXIPPaoaHUO5r8LirGsQIYWPozTQNgN6DjswASmcIy", confirm_password: "", };
 				requestAnimationFrame(() => {
 					this.$refs.observer.reset();
 				});

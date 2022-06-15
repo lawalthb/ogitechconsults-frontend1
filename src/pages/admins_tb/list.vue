@@ -103,6 +103,10 @@
                                                         <q-td  key="deleted" :props="props">
                                                             {{ props.row.deleted }}
                                                         </q-td>
+                                                        <q-td  key="photo" :props="props">
+                                                            <image-viewer image-size="medium" image-preview-size="" :src="props.row.photo" width="50px" height="50px" :num-display="1">
+                                                            </image-viewer>
+                                                        </q-td>
                                                         <q-td key="btnactions" :props="props">
                                                             <div class="row q-col-gutter-xs justify-end">
                                                                 <q-btn icon="menu" padding="xs" round flat color="grey">
@@ -209,6 +213,15 @@
                                                                     </div>
                                                                     <div class="col text-right">
                                                                         {{ props.row.deleted }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row q-py-sm q-col-gutter-md justify-content-between">
+                                                                    <div class="col-auto text-caption">
+                                                                        Photo
+                                                                    </div>
+                                                                    <div class="col text-right">
+                                                                        <image-viewer image-size="medium" image-preview-size="" :src="props.row.photo" width="50px" height="50px" :num-display="1">
+                                                                        </image-viewer>
                                                                     </div>
                                                                 </div>
                                                             </q-card-section>

@@ -39,7 +39,7 @@ export const AppMenus = {
   {
     "path": "/",
     "label": "Logout",
-    "icon": "subdirectory_arrow_left",
+    "icon": "exit_to_app",
     "iconcolor": "",
     "target": "",
     "submenu": []
@@ -61,14 +61,14 @@ export const AppMenus = {
     "field": "image"
   },
   {
-    "label": "Vendor Id",
+    "label": "Vendor",
     "align": "left",
     "sortable": false,
     "name": "vendor_id",
     "field": "vendor_id"
   },
   {
-    "label": "Department Id",
+    "label": "Department",
     "align": "left",
     "sortable": false,
     "name": "department_id",
@@ -80,13 +80,6 @@ export const AppMenus = {
     "sortable": false,
     "name": "level",
     "field": "level"
-  },
-  {
-    "label": "Action",
-    "align": "right",
-    "sortable": false,
-    "name": "btnactions",
-    "field": ""
   }
 ],
 	product_nameItems: [    
@@ -187,13 +180,6 @@ export const AppMenus = {
     "sortable": false,
     "name": "qty",
     "field": "qty"
-  },
-  {
-    "label": "Action",
-    "align": "right",
-    "sortable": false,
-    "name": "btnactions",
-    "field": ""
   }
 ],
 	Order_TbTableHeader2Items: [
@@ -396,6 +382,13 @@ export const AppMenus = {
     "sortable": false,
     "name": "deleted",
     "field": "deleted"
+  },
+  {
+    "label": "Photo",
+    "align": "left",
+    "sortable": false,
+    "name": "photo",
+    "field": "photo"
   },
   {
     "label": "Action",
@@ -881,6 +874,36 @@ export const AppMenus = {
     "sortable": false,
     "name": "status",
     "field": "status"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
+  }
+],
+	Product_DepartmentsTableHeaderItems: [
+  {
+    "label": "Product Department Id",
+    "align": "left",
+    "sortable": false,
+    "name": "product_department_id",
+    "field": "product_department_id"
+  },
+  {
+    "label": "Product Id",
+    "align": "left",
+    "sortable": false,
+    "name": "product_id",
+    "field": "product_id"
+  },
+  {
+    "label": "Department Id",
+    "align": "left",
+    "sortable": false,
+    "name": "department_id",
+    "field": "department_id"
   },
   {
     "label": "Action",

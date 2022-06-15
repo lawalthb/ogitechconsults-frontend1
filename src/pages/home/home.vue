@@ -138,7 +138,7 @@
                     <div class="col-sm-12 col-lg-6 col-md-6 comp-grid" >
                         <div class="">
                             <div class="reset-grid">
-                                <list-productstb-page is-sub-page ref="productsTbListPage"  :limit="10" sort-by="products_tb.product_id" sort-type="DESC" :show-header="false" :show-breadcrumbs="true" :show-footer="false" :paginate="false" v-if="ready">
+                                <list-productstb-page is-sub-page ref="productsTbListPage"  :limit="5" sort-by="products_tb.product_id" sort-type="DESC" :show-header="false" :show-breadcrumbs="true" :show-footer="false" :paginate="false" v-if="ready">
                                     </list-productstb-page>
                                 </div>
                             </div>
